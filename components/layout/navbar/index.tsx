@@ -1,16 +1,30 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
 
+// lib
+import { Menu, MenuResponse } from 'lib/strapi/domain/menu';
+import { getClient } from 'lib/strapi/client';
+
+//query
+import { getMenuQuery } from 'lib/strapi/queries/menu';
+
+// components
 import Cart from 'components/cart';
 import CartIcon from 'components/icons/cart';
 import LogoIcon from 'components/icons/logo';
-import { getMenu } from 'lib/shopify';
-import { Menu } from 'lib/shopify/types';
 import MobileMenu from './mobile-menu';
 import Search from './search';
 
 export default async function Navbar() {
-  const menu = await getMenu('next-js-frontend-header-menu');
+  const { data, loading } = await getClient().query<MenuResponse>({
+    query: getMenuQuery,
+    variables: {
+      handle: 'menu-header'
+    }
+  });
+
+  if (loading) return 'cargando....';
+  const menu = data.menu?.data?.attributes?.items;
 
   return (
     <nav className="relative flex items-center justify-between bg-white p-4 dark:bg-black lg:px-6">
