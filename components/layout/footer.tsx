@@ -1,18 +1,35 @@
 import Link from 'next/link';
 
+//lib
+import { getClient } from 'lib/strapi/client';
+import { Menu, MenuResponse } from 'lib/strapi/domain/menu';
+
+//query
+import { getMenuQuery } from 'lib/strapi/queries/menu';
+
+//components
 import GitHubIcon from 'components/icons/github';
 import LogoIcon from 'components/icons/logo';
 import VercelIcon from 'components/icons/vercel';
-import { getMenu } from 'lib/shopify';
-import { Menu } from 'lib/shopify/types';
+
+
 
 const { SITE_NAME } = process.env;
 
 export default async function Footer() {
+  const {data, loading} = await getClient().query<MenuResponse>({
+    query: getMenuQuery,
+    variables: {
+      handle: 'menu-footer'
+    }
+  });
+
+  if (loading) return 'cargando....';
+  const menu = data.menu?.data?.attributes?.items;
+
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const menu = await getMenu('next-js-frontend-footer-menu');
-
+  
   return (
     <footer className="border-t border-gray-700 bg-white text-black dark:bg-black dark:text-white">
       <div className="mx-auto w-full max-w-7xl px-6">
