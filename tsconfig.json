@@ -20,9 +20,6 @@
     "incremental": true,
     "baseUrl": ".",
     "noUncheckedIndexedAccess": true,
-    "types": [
-      "react/next"
-    ],
     "plugins": [
       {
         "name": "next"
