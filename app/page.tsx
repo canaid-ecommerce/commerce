@@ -3,12 +3,9 @@ import { Suspense } from 'react';
 // import { getClient } from 'lib/strapi/client';
 
 // components
-import Footer from 'components/layout/footer';
 import { Carousel } from 'components/carousel';
 import { ThreeItemGrid } from 'components/grid/three-items';
-
-// export const runtime = 'edge';
-
+import Footer from 'components/layout/footer';
 export const metadata = {
   description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
   openGraph: {
