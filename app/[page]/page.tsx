@@ -11,7 +11,6 @@ import { getPageQuery } from 'lib/strapi/queries/page';
 //components
 import Prose from 'components/prose';
 
-
 export const revalidate = 43200; // 12 hours in seconds
 
 export async function generateMetadata({
@@ -19,10 +18,14 @@ export async function generateMetadata({
 }: {
   params: { page: string };
 }): Promise<Metadata> {
-  //const page = await getPage(params.page);
+  const { data, loading } = await getClient().query<PageResponse>({
+    query: getPageQuery,
+    variables: {
+      handle: params.page
+    }
+  });
 
   const title = data.page.data.attributes.title;
-  const body = data.page.data.attributes.body;
   const bodySummary = data.page.data.attributes.bodySummary;
   const seo = data.page.data.attributes.SEO;
   const createdAt = data.page.data.attributes.createdAt;
@@ -49,18 +52,15 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { page: string } }) {
-  const{ data, loading } = await getClient().query<PageResponse>({
+  const { data, loading } = await getClient().query<PageResponse>({
     query: getPageQuery,
     variables: {
       handle: params.page
     }
   });
-  console.log(data.page.data.attributes)
-  
+
   if (!data) return notFound();
   if (loading) return 'cargando....';
-  //const page = await getPage(params.page);
-  //const page = data.page?.data?.attributes?.items;
 
   const title = data.page.data.attributes.title;
   const body = data.page.data.attributes.body;
