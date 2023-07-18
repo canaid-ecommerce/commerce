@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 //lib
@@ -17,7 +19,7 @@ import VercelIcon from 'components/icons/vercel';
 const { SITE_NAME } = process.env;
 
 export default async function Footer() {
-  const {data, loading} = await getClient().query<MenuResponse>({
+  const { data, loading } = await getClient().query<MenuResponse>({
     query: getMenuQuery,
     variables: {
       handle: 'menu-footer'
@@ -29,7 +31,7 @@ export default async function Footer() {
 
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  
+
   return (
     <footer className="border-t border-gray-700 bg-white text-black dark:bg-black dark:text-white">
       <div className="mx-auto w-full max-w-7xl px-6">
