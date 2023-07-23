@@ -1,33 +1,20 @@
-'use client';
-
 import Link from 'next/link';
 
 //lib
-import { getClient } from 'lib/strapi/client';
-import { Menu, MenuResponse } from 'lib/strapi/domain/menu';
-
-//query
-import { getMenuQuery } from 'lib/strapi/queries/menu';
+import { Menu } from 'lib/strapi/domain/menu';
+import { getMenu } from 'lib/strapi/services/menu';
 
 //components
 import GitHubIcon from 'components/icons/github';
 import LogoIcon from 'components/icons/logo';
 import VercelIcon from 'components/icons/vercel';
 
-
-
 const { SITE_NAME } = process.env;
 
 export default async function Footer() {
-  const { data, loading } = await getClient().query<MenuResponse>({
-    query: getMenuQuery,
-    variables: {
-      handle: 'menu-footer'
-    }
-  });
+  const menu = await getMenu('menu-footer');
 
-  if (loading) return 'cargando....';
-  const menu = data.menu?.data?.attributes?.items;
+  if (!menu) return 'cargando....';
 
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');

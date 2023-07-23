@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const getMenuQuery = gql`
+export const getMenuQuery = `
   query getMenu($handle: String!) {
     menu(handle: $handle) {
       data {

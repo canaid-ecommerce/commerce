@@ -1,11 +1,10 @@
-'use client';
-
 import Link from 'next/link';
 import { Suspense } from 'react';
 
 // lib
 import { Menu, MenuResponse } from 'lib/strapi/domain/menu';
 import { getClient } from 'lib/strapi/client';
+import { getMenu } from 'lib/strapi/services/menu';
 
 //query
 import { getMenuQuery } from 'lib/strapi/queries/menu';
@@ -18,15 +17,9 @@ import MobileMenu from './mobile-menu';
 import Search from './search';
 
 export default async function Navbar() {
-  const { data, loading } = await getClient().query<MenuResponse>({
-    query: getMenuQuery,
-    variables: {
-      handle: 'menu-header'
-    }
-  });
+  const menu = await getMenu('menu-header');
 
-  if (loading) return 'cargando....';
-  const menu = data.menu?.data?.attributes?.items;
+  if (!menu) return 'cargando....';
 
   return (
     <nav className="relative flex items-center justify-between bg-white p-4 dark:bg-black lg:px-6">

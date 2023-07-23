@@ -12,3 +12,18 @@ export type MenuResponse = {
     };
   };
 };
+
+export type StrapiMenuOperation = {
+  data: {
+    menu?: {
+      data: {
+        attributes: {
+          items: [Menu];
+        };
+      };
+    };
+  };
+  variables: {
+    handle: string;
+  };
+};
