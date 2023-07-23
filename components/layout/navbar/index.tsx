@@ -2,12 +2,8 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 
 // lib
-import { Menu, MenuResponse } from 'lib/strapi/domain/menu';
-import { getClient } from 'lib/strapi/client';
+import { Menu } from 'lib/strapi/domain/menu';
 import { getMenu } from 'lib/strapi/services/menu';
-
-//query
-import { getMenuQuery } from 'lib/strapi/queries/menu';
 
 // components
 import Cart from 'components/cart';
