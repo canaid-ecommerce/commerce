@@ -7,6 +7,7 @@ module.exports = {
   experimental: {
     serverActions: true
   },
+  reactStrictMode: true,
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
