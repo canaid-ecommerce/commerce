@@ -16,8 +16,21 @@ type SEO = {
 export type PageResponse = {
     page: {
       data: {
-        id: 1;
+        id: number;
+        attributes: Page;
+      };
+    };
+};
+
+export type StrapiPageOperation = {
+  data: {
+    page?: {
+      data: {
         attributes: Page;
       };
     };
   };
+  variables: {
+    handle: string;
+  };
+};

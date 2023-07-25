@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 // lib
 import { getClient } from 'lib/strapi/client';
 import { PageResponse } from 'lib/strapi/domain/page';
+import { getPage } from 'lib/strapi/services/page';
 
 //query
 import { getPageQuery } from 'lib/strapi/queries/page';
@@ -52,19 +53,23 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { page: string } }) {
-  const { data, loading } = await getClient().query<PageResponse>({
-    query: getPageQuery,
-    variables: {
-      handle: params.page
-    }
-  });
+  const data = await getPage(params.page)
+
+  console.log(data)
+
+  const title = data?.title;
+  const body = data?.body;
+  const updatedAt = data?.updatedAt;
+
+  // const { data, loading } = await getClient().query<PageResponse>({
+  //   query: getPageQuery,
+  //   variables: {
+  //     handle: params.page
+  //   }
+  // });
 
   if (!data) return notFound();
-  if (loading) return 'cargando....';
-
-  const title = data.page.data.attributes.title;
-  const body = data.page.data.attributes.body;
-  const updatedAt = data.page.data.attributes.updatedAt;
+  if (data) return 'cargando....';
 
   return (
     <>
