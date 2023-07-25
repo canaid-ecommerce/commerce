@@ -15,7 +15,7 @@ import Search from './search';
 export default async function Navbar() {
   const menu = await getMenu('menu-header');
 
-  if (!menu) return 'cargando....';
+  if (!menu) return null;
 
   return (
     <nav className="relative flex items-center justify-between bg-white p-4 dark:bg-black lg:px-6">

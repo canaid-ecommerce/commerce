@@ -14,7 +14,7 @@ const { SITE_NAME } = process.env;
 export default async function Footer() {
   const menu = await getMenu('menu-footer');
 
-  if (!menu) return 'cargando....';
+  if (!menu) return null;
 
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');

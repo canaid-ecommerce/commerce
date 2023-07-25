@@ -53,23 +53,12 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { page: string } }) {
-  const data = await getPage(params.page)
-
-  console.log(data)
+  const data = await getPage(params.page);
+  if (!data) return notFound();
 
   const title = data?.title;
   const body = data?.body;
   const updatedAt = data?.updatedAt;
-
-  // const { data, loading } = await getClient().query<PageResponse>({
-  //   query: getPageQuery,
-  //   variables: {
-  //     handle: params.page
-  //   }
-  // });
-
-  if (!data) return notFound();
-  if (data) return 'cargando....';
 
   return (
     <>

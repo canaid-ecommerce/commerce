@@ -6,6 +6,7 @@ export type Menu = {
 export type MenuResponse = {
   menu: {
     data: {
+      id: number;
       attributes: {
         items: [Menu];
       };
