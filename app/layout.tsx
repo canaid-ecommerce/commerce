@@ -23,12 +23,12 @@ export const metadata = {
   },
   ...(TWITTER_CREATOR &&
     TWITTER_SITE && {
-    twitter: {
-      card: 'summary_large_image',
-      creator: TWITTER_CREATOR,
-      site: TWITTER_SITE
-    }
-  })
+      twitter: {
+        card: 'summary_large_image',
+        creator: TWITTER_CREATOR,
+        site: TWITTER_SITE
+      }
+    })
 };
 
 const inter = Inter({

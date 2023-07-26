@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const getPageQuery = gql`
-query getPage($handle: String!) {
+  query getPage($handle: String!) {
     page(handle: $handle) {
       data {
         id

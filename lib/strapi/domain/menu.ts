@@ -3,21 +3,11 @@ export type Menu = {
   path: string;
 };
 
-export type MenuResponse = {
-  menu: {
-    data: {
-      id: number;
-      attributes: {
-        items: [Menu];
-      };
-    };
-  };
-};
-
 export type StrapiMenuOperation = {
   data: {
     menu?: {
       data: {
+        id: number;
         attributes: {
           items: [Menu];
         };

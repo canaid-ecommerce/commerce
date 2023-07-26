@@ -2,20 +2,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 //lib
-import { getCarousel } from 'lib/strapi/services/carousel';
-//import { getCollectionProducts } from 'lib/shopify';
-
-
+import { getCollectionProducts as getCollectionProducts2 } from 'lib/strapi/services/collection';
+// import { getCollectionProducts } from 'lib/shopify';
 
 export async function Carousel() {
   // Collections that start with `hidden-*` are hidden from the search page.
-  //const products = await getCollectionProducts({ collection: 'hidden-homepage-carousel' });
+  // const products = await getCollectionProducts({ collection: 'hidden-homepage-carousel' });
 
-  const carousel = await getCarousel('reloj-inteligente')
-  console.log(carousel)
+  const carousel = await getCollectionProducts2('reloj-inteligente');
+  console.log(carousel);
 
-  //if (!carousel?.length) return null; 
-  //if (!products?.length) return null;
+  return null;
 
   return (
     <div className="relative w-full overflow-hidden bg-black dark:bg-white">
