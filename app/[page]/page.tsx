@@ -2,12 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 // lib
-import { getClient } from 'lib/strapi/client';
-import { PageResponse } from 'lib/strapi/domain/page';
 import { getPage } from 'lib/strapi/services/page';
-
-//query
-import { getPageQuery } from 'lib/strapi/queries/page';
 
 //components
 import Prose from 'components/prose';
@@ -19,18 +14,14 @@ export async function generateMetadata({
 }: {
   params: { page: string };
 }): Promise<Metadata> {
-  const { data, loading } = await getClient().query<PageResponse>({
-    query: getPageQuery,
-    variables: {
-      handle: params.page
-    }
-  });
+  const data = await getPage(params.page);
+  if (!data) return notFound();
 
-  const title = data.page.data.attributes.title;
-  const bodySummary = data.page.data.attributes.bodySummary;
-  const seo = data.page.data.attributes.SEO;
-  const createdAt = data.page.data.attributes.createdAt;
-  const updatedAt = data.page.data.attributes.updatedAt;
+  const title = data?.title;
+  const bodySummary = data?.bodySummary;
+  const seo = data?.SEO;
+  const createdAt = data?.createdAt;
+  const updatedAt = data?.updatedAt;
 
   if (!data) return notFound();
 
