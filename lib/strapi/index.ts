@@ -7,8 +7,8 @@ const GRAPHQL_ENDPOINT = 'https://5a03cffb-e055-4896-926e-1fb12368b22a.mock.pstm
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
 
 export async function strapiFetch<T>({
-  // cache = 'force-cache',
-  cache = 'no-store',
+  cache = 'force-cache',
+  // cache = 'no-store',
   headers,
   query,
   tags,
