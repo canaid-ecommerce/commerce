@@ -3,16 +3,14 @@ import { GridTileImage } from './grid/tile';
 
 //lib
 import { getCollectionProducts } from 'lib/strapi/services/collection';
-// import { getCollectionProducts } from 'lib/shopify';
+import { getCollectionProducts as getCollectionProducts2 } from 'lib/shopify';
 
 export async function Carousel() {
   // Collections that start with `hidden-*` are hidden from the search page.
-  // const products = await getCollectionProducts({ collection: 'hidden-homepage-carousel' });
+  const products = await getCollectionProducts2({ collection: 'hidden-homepage-carousel' });
 
   const carousel = await getCollectionProducts('reloj-inteligente');
   console.log(carousel);
-
-  return null;
 
   return (
     <div className=" w-full overflow-x-auto pb-6 pt-1">
