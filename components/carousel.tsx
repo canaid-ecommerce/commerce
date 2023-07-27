@@ -2,14 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 //lib
-import { getCollectionProducts as getCollectionProducts2 } from 'lib/strapi/services/collection';
+import { getCollectionProducts } from 'lib/strapi/services/collection';
 // import { getCollectionProducts } from 'lib/shopify';
 
 export async function Carousel() {
   // Collections that start with `hidden-*` are hidden from the search page.
   // const products = await getCollectionProducts({ collection: 'hidden-homepage-carousel' });
 
-  const carousel = await getCollectionProducts2('reloj-inteligente');
+  const carousel = await getCollectionProducts('reloj-inteligente');
   console.log(carousel);
 
   return null;

@@ -27,7 +27,7 @@ export async function strapiFetch<T>({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-mock-match-request-body': true,
+        'x-mock-match-request-body': 'true',
         ...headers
       },
       body: JSON.stringify({
