@@ -1,10 +1,10 @@
 import { strapiFetch } from '..';
 import { Page, StrapiPageOperation } from '../domain/page';
-import { getQuery } from '../queries/page';
+import { getPageQuery } from '../queries/page';
 
 export async function getPage(handle: string): Promise<Page | undefined> {
   const res = await strapiFetch<StrapiPageOperation>({
-    query: getQuery,
+    query: getPageQuery,
     variables: {
       handle
     }
