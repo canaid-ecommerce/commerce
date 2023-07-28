@@ -3,19 +3,21 @@ import { GridTileImage } from './grid/tile';
 
 //lib
 import { getCollectionProducts } from 'lib/strapi/services/collection';
-import { getCollectionProducts as getCollectionProducts2 } from 'lib/shopify';
 
 export async function Carousel() {
-  // Collections that start with `hidden-*` are hidden from the search page.
-  const products = await getCollectionProducts2({ collection: 'hidden-homepage-carousel' });
+  const collection = await getCollectionProducts('reloj-inteligente');
+  console.log(collection?.products);
 
-  const carousel = await getCollectionProducts('reloj-inteligente');
-  console.log(carousel);
+  if(!collection) {
+    return 'Loading Collection...'
+  }
+
+  const productArray = Object.values(collection.products)
 
   return (
     <div className=" w-full overflow-x-auto pb-6 pt-1">
       <div className="flex animate-carousel gap-4">
-        {[...products, ...products].map((product, i) => (
+        {productArray.map((product, i) => (
           <Link
             key={`${product.handle}${i}`}
             href={`/product/${product.handle}`}
@@ -25,10 +27,10 @@ export async function Carousel() {
               alt={product.title}
               label={{
                 title: product.title,
-                amount: product.priceRange.maxVariantPrice.amount,
-                currencyCode: product.priceRange.maxVariantPrice.currencyCode
+                amount: String(product.priceRange.amount),
+                currencyCode: product.priceRange.currencyCode
               }}
-              src={product.featuredImage?.url}
+              src={product.featuredImage.url}
               width={600}
               height={600}
             />
