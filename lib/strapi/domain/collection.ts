@@ -4,7 +4,12 @@ import { Product } from './product'
 export type Collection = {
   title: string;
   description: string;
-  products: [Product];
+  products?: {
+    data?: {
+      id: number;
+      attributes?: [Product] | undefined
+    }
+  };
   SEO: SEO;
   createdAt: string;
   updatedAt: string;

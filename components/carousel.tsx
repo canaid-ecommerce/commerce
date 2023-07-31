@@ -1,4 +1,6 @@
 import Link from 'next/link';
+
+// components
 import { GridTileImage } from './grid/tile';
 
 //lib
@@ -6,37 +8,31 @@ import { getCollectionProducts } from 'lib/strapi/services/collection';
 
 export async function Carousel() {
   const collection = await getCollectionProducts('reloj-inteligente');
-  console.log(collection?.products);
-
-  if(!collection) {
-    return 'Loading Collection...'
-  }
-
-  const productArray = Object.values(collection.products)
+  const products = collection?.products?.data;
 
   return (
     <div className=" w-full overflow-x-auto pb-6 pt-1">
       <div className="flex animate-carousel gap-4">
-        {productArray.map((product, i) => (
-          <Link
-            key={`${product.handle}${i}`}
-            href={`/product/${product.handle}`}
+        {Array.isArray(products) && products.map((product, i) => {
+          return <Link
+            key={`${product?.attributes?.handle}${i}`}
+            href={`/product/${product?.attributes?.handle}`}
             className="h-[30vh] w-2/3 flex-none md:w-1/3"
           >
             <GridTileImage
-              alt={product.title}
+              alt={product?.attributes?.title}
               label={{
-                title: product.title,
-                amount: String(product.priceRange.amount),
-                currencyCode: product.priceRange.currencyCode
+                title: product?.attributes?.title,
+                amount: String(product?.attributes?.priceRange?.amount),
+                currencyCode: product?.attributes?.priceRange?.currencyCode
               }}
-              src={product.featuredImage.url}
+              src={product?.attributes?.featuredImage?.url}
               width={600}
               height={600}
             />
           </Link>
-        ))}
+        })}
       </div>
-    </div>
+    </div >
   );
 }
