@@ -15,6 +15,18 @@ module.exports = {
         protocol: 'https',
         hostname: 'cdn.shopify.com',
         pathname: '/s/files/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'http2.mlstatic.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'el-hogar-inteligente.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'chollobox.com'
       }
     ]
   }
