@@ -1,16 +1,17 @@
-import { SEO } from './components'
-import { Product } from './product'
+import { SEO } from './components';
+import { Product } from './product';
 
 export type Collection = {
   title: string;
   description: string;
+  handle: string;
+  SEO: SEO;
   products?: {
     data?: {
       id: number;
       attributes?: [Product] | undefined
     }
   };
-  SEO: SEO;
   createdAt: string;
   updatedAt: string;
 };
