@@ -3,7 +3,7 @@ import Link from 'next/link';
 // components
 import { GridTileImage } from './grid/tile';
 
-//lib
+// lib
 import { getCollectionProducts } from 'lib/strapi/services/collection';
 
 export async function Carousel() {
@@ -11,7 +11,7 @@ export async function Carousel() {
   const products = collection?.products?.data;
 
   return (
-    <div className=" w-full overflow-x-auto pb-6 pt-1">
+    <div className="w-full overflow-x-auto pb-6 pt-1">
       <div className="flex animate-carousel gap-4">
         {Array.isArray(products) && products.map((product, i) => {
           return <Link
