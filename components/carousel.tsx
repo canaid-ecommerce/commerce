@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { findWhere } from 'underscore';
 
 // components
 import { GridTileImage } from './grid/tile';
@@ -9,20 +10,14 @@ import { getCollectionProducts } from 'lib/strapi/services/collection';
 export async function Carousel() {
   const collection = await getCollectionProducts('reloj-inteligente');
   const products = collection?.products?.data;
- 
+
   return (
     <div className="w-full overflow-x-auto pb-6 pt-1">
       <div className="flex animate-carousel gap-4">
         {Array.isArray(products) && products.map((product, i) => {
-          console.log(product.PrinceRange)
+          // const minPrice = findWhere(product.attributes.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
+          const maxPrice = findWhere(product.attributes.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
 
-          const allAmounts = product?.attributes?.priceRange?.flatMap((price: any) => ({
-            amount: price.amount,
-            currencyCode: price.currencyCode
-          })) ?? []
-
-          console.log(allAmounts)
-          
           return <Link
             key={`${product?.attributes?.handle}${i}`}
             href={`/product/${product?.attributes?.handle}`}
@@ -32,8 +27,8 @@ export async function Carousel() {
               alt={product?.attributes?.title}
               label={{
                 title: product?.attributes?.title,
-                amount: allAmounts?.amount,
-                currencyCode: allAmounts?.currencyCode,
+                amount: maxPrice?.amount,
+                currencyCode: maxPrice?.currencyCode,
               }}
               src={product?.attributes?.featuredImage?.url}
               width={600}
