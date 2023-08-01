@@ -40,8 +40,10 @@ export async function strapiFetch<T>({
 
     const body = await result.json();
 
-    if (body.errors) {
-      throw body.errors[0];
+
+    if (body.error) {
+      console.error(body.error);
+      throw body.error;
     }
 
     return {
