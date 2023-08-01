@@ -43,7 +43,7 @@ export async function strapiFetch<T>({
 
     if (body.error) {
       console.error(body.error);
-      throw body.error;
+      throw body.error.message;
     }
 
     return {
