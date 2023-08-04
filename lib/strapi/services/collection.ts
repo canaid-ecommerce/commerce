@@ -10,5 +10,9 @@ export async function getCollectionProducts(handle: string): Promise<Collection 
         },
     });
 
+    if (!res.body?.data?.collection?.data) {
+        console.error(`collection ${handle} not found or unpublished`)
+    }
+
     return res.body?.data?.collection?.data?.attributes;
 }

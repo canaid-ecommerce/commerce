@@ -8,7 +8,7 @@ import { GridTileImage } from './grid/tile';
 import { getCollectionProducts } from 'lib/strapi/services/collection';
 
 export async function Carousel() {
-  const collection = await getCollectionProducts('reloj-inteligente');
+  const collection = await getCollectionProducts('carousel-footer');
   const products = collection?.products?.data;
 
   return (
@@ -31,8 +31,8 @@ export async function Carousel() {
                 currencyCode: maxPrice?.currencyCode,
               }}
               src={product?.attributes?.featuredImage?.url}
-              width={600}
-              height={600}
+              width={product?.attributes?.featuredImage?.width}
+              height={product?.attributes?.featuredImage?.height}
             />
           </Link>
         })}

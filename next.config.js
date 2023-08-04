@@ -18,15 +18,7 @@ module.exports = {
       },
       {
         protocol: 'https',
-        hostname: 'http2.mlstatic.com'
-      },
-      {
-        protocol: 'https',
-        hostname: 'el-hogar-inteligente.com'
-      },
-      {
-        protocol: 'https',
-        hostname: 'chollobox.com'
+        hostname: 'weedgreen.com'
       }
     ]
   }
