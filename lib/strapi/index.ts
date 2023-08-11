@@ -8,8 +8,7 @@ const GRAPHQL_ENDPOINT = 'https://canaid-backend-ukwd6.ondigitalocean.app/graphq
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
 
 export async function strapiFetch<T>({
-  // cache = 'force-cache',
-  cache = 'no-store',
+  cache = process.env.NODE_ENV == 'development' ? 'no-store' : 'force-cache',
   headers,
   query,
   tags,
