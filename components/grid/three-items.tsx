@@ -41,10 +41,16 @@ export async function ThreeItemGrid() {
   const homepageItems = await getCollectionProducts('carousel-footer');
   const products = homepageItems?.products?.data;
 
-  if (!products || !products[0] || !products[1] || !products[2]) return null;
-  //if (!homepageItems?.id[0] || !homepageItems[1] || !homepageItems[2]) return null;
+  if (
+    !products ||
+    !Object.values(products)[0] ||
+    !Object.values(products)[1] ||
+    !Object.values(products)[2]
+  ) return null;
 
-  const [firstProduct, secondProduct, thirdProduct] = products;
+  const firstProduct = Object.values(products)[0],
+    secondProduct = Object.values(products)[1],
+    thirdProduct = Object.values(products)[2];
 
   return (
     <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 lg:grid-cols-6 lg:grid-rows-2">

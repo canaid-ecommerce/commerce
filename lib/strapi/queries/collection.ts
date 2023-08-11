@@ -39,7 +39,7 @@ query getCollectionProducts($handle: String!) {
               images {
                 url
                 altText
-                witdth
+                width
                 height
               }
               featuredImage {
