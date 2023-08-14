@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
+//Components 
 import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
+
+//lib
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
-import Link from 'next/link';
+import { getProduct } from 'lib/strapi/services/product';
+
 
 export const runtime = 'edge';
 
@@ -22,12 +26,12 @@ export async function generateMetadata({
 
   if (!product) return notFound();
 
-  const { url, width, height, altText: alt } = product.featuredImage || {};
-  const hide = !product.tags.includes(HIDDEN_PRODUCT_TAG);
+  const { url, width, height, altText: alt } = product.images || {};
+  const hide = product.tags.name.some(tag => tag === HIDDEN_PRODUCT_TAG );
 
   return {
-    title: product.seo.title || product.title,
-    description: product.seo.description || product.description,
+    title: product.SEO.title || product.title,
+    description: product.SEO.description || product.description,
     robots: {
       index: hide,
       follow: hide,
@@ -54,6 +58,11 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const product = await getProduct(params.handle);
 
+  // const minPrice = findWhere(product.attributes.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
+  //const maxPrice = findWhere(product.attributes.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
+
+  console.log(product)
+
   if (!product) return notFound();
 
   const productJsonLd = {
@@ -61,7 +70,7 @@ export default async function ProductPage({ params }: { params: { handle: string
     '@type': 'Product',
     name: product.title,
     description: product.description,
-    image: product.featuredImage.url,
+    image: product.images.url,
     offers: {
       '@type': 'AggregateOffer',
       availability: product.availableForSale
@@ -97,7 +106,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
         </div>
         <Suspense>
-          <RelatedProducts id={product.id} />
+          <RelatedProducts id={product?.data.attributes.id} />
         </Suspense>
       </div>
       <Suspense>
