@@ -9,7 +9,10 @@ export async function getProduct(handle : string): Promise<Product | undefined> 
             handle
         }
     });
-    
+
+    if (!res.body?.data?.product?.data ) {
+        console.error(`product ${handle} not found or unpublished`)
+    }
 
     return res.body.data.product?.data.attributes;
 }

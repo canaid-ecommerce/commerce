@@ -58,10 +58,10 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const product = await getProduct(params.handle);
 
-  // const minPrice = findWhere(product.attributes.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
+  //const minPrice = findWhere(product?.attributes.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
   //const maxPrice = findWhere(product.attributes.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
 
-  console.log(product)
+  console.log(product.attributes)
 
   if (!product) return notFound();
 
@@ -76,7 +76,7 @@ export default async function ProductPage({ params }: { params: { handle: string
       availability: product.availableForSale
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
+      priceCurrency: product.priceRange.minVariantPrice?.currencyCode,
       highPrice: product.priceRange.maxVariantPrice.amount,
       lowPrice: product.priceRange.minVariantPrice.amount
     }

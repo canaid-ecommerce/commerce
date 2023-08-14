@@ -18,7 +18,7 @@ query getCollectionProducts($handle: String!) {
               title
               description
               handle
-              avaliableForSale
+              availableForSale
               descriptionHtml
               priceRange {
                 ... on ComponentItemsMaxVariantPrice {
