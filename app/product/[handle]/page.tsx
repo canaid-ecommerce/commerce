@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+import { findWhere } from 'underscore';
 
 //Components 
 import { GridTileImage } from 'components/grid/tile';
@@ -58,27 +59,25 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const product = await getProduct(params.handle);
 
-  //const minPrice = findWhere(product?.attributes.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
-  //const maxPrice = findWhere(product.attributes.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
-
-  console.log(product.attributes)
-
+  const minPrice = findWhere(product?.attributes.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
+  const maxPrice = findWhere(product?.attributes.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
+  
   if (!product) return notFound();
 
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.title,
-    description: product.description,
-    image: product.images.url,
+    name: product?.title,
+    description: product?.description,
+    image: product?.images.url,
     offers: {
       '@type': 'AggregateOffer',
       availability: product.availableForSale
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: product.priceRange.minVariantPrice?.currencyCode,
-      highPrice: product.priceRange.maxVariantPrice.amount,
-      lowPrice: product.priceRange.minVariantPrice.amount
+      priceCurrency: product?.priceRange.currencyCode, 
+      highPrice: maxPrice.amount,
+      lowPrice: minPrice.amount
     }
   };
 
@@ -94,7 +93,7 @@ export default async function ProductPage({ params }: { params: { handle: string
         <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-4">
             <Gallery
-              images={product.images.map((image: Image) => ({
+              images={product?.attributes.images.map((image: Image) => ({
                 src: image.url,
                 altText: image.altText
               }))}
@@ -102,11 +101,11 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
 
           <div className="py-6 pr-8 md:pr-12 lg:col-span-2">
-            <ProductDescription product={product} />
+            <ProductDescription product={product?.attributes.description} />
           </div>
         </div>
         <Suspense>
-          <RelatedProducts id={product?.data.attributes.id} />
+          <RelatedProducts id={product?.id} />
         </Suspense>
       </div>
       <Suspense>
@@ -114,7 +113,7 @@ export default async function ProductPage({ params }: { params: { handle: string
       </Suspense>
     </>
   );
-}
+};
 
 async function RelatedProducts({ id }: { id: string }) {
   const relatedProducts = await getProductRecommendations(id);
