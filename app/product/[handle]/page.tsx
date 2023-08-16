@@ -11,50 +11,50 @@ import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
 
 //lib
-import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
+//import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { Image } from 'lib/shopify/types';
 import { getProduct } from 'lib/strapi/services/product';
 
 
 export const runtime = 'edge';
 
-// export async function generateMetadata({
-//   params
-// }: {
-//   params: { handle: string };
-// }): Promise<Metadata> {
-//   const product = await getProduct(params.handle);
+export async function generateMetadata({
+  params
+}: {
+  params: { handle: string };
+}): Promise<Metadata> {
+  const product = await getProduct(params.handle);
 
-//   if (!product) return notFound();
+  if (!product) return notFound();
 
-//   const { url, width, height, altText: alt } = product.images || {};
-//   const hide = product.tags.name.some(tag => tag === HIDDEN_PRODUCT_TAG );
+   const { url, width, height, altText: alt } = product?.images || {};
+  // const hide = product?.tags.name.some(tag => tag === HIDDEN_PRODUCT_TAG );
 
-//   return {
-//     title: product.SEO.title || product.title,
-//     description: product.SEO.description || product.description,
-//     robots: {
-//       index: hide,
-//       follow: hide,
-//       googleBot: {
-//         index: hide,
-//         follow: hide
-//       }
-//     },
-//     openGraph: url
-//       ? {
-//           images: [
-//             {
-//               url,
-//               width,
-//               height,
-//               alt
-//             }
-//           ]
-//         }
-//       : null
-//   };
-// }
+  return {
+    title: product?.SEO.title || product?.title,
+    description: product?.SEO.description || product?.description,
+    // robots: {
+    //   index: hide,
+    //   follow: hide,
+    //   googleBot: {
+    //     index: hide,
+    //     follow: hide
+    //   }
+    // },
+    openGraph: url
+      ? {
+          images: [
+            {
+              url,
+              width,
+              height,
+              alt
+            }
+          ]
+        }
+      : null
+  };
+}
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const product = await getProduct(params.handle);

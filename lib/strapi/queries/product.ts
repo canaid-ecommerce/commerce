@@ -47,6 +47,18 @@ query getProduct($handle: String!) {
           }
         }
       }
+      variants {
+        title
+        availableForSale
+        selectedOptions {
+          name
+          value 
+        }
+        price {
+          amount
+          currencyCode
+        }
+      }
     }
   }
 }

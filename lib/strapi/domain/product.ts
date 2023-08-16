@@ -12,6 +12,7 @@ export type Product = {
   images: Images;
   //featuredImage: FeaturedImage;
   tags: Tags;
+  variants: Variants; 
 };
 
 type PriceRange = {
@@ -36,6 +37,23 @@ type Images = {
 
 type Tags = {
   name: string[]
+};
+
+type Variants = {
+  title: string;
+  availableForSale: boolean;
+  selectedOptions: SelectedOptions;
+  price: Price;
+};
+
+type SelectedOptions = {
+  name: string;
+  value: number;
+};
+
+type Price = {
+  amount: number;
+  currencyCode: string;
 };
 
 export type StrapiProductOperation = {
