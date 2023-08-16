@@ -18,51 +18,51 @@ import { getProduct } from 'lib/strapi/services/product';
 
 export const runtime = 'edge';
 
-export async function generateMetadata({
-  params
-}: {
-  params: { handle: string };
-}): Promise<Metadata> {
-  const product = await getProduct(params.handle);
+// export async function generateMetadata({
+//   params
+// }: {
+//   params: { handle: string };
+// }): Promise<Metadata> {
+//   const product = await getProduct(params.handle);
 
-  if (!product) return notFound();
+//   if (!product) return notFound();
 
-  const { url, width, height, altText: alt } = product.images || {};
-  const hide = product.tags.name.some(tag => tag === HIDDEN_PRODUCT_TAG );
+//   const { url, width, height, altText: alt } = product.images || {};
+//   const hide = product.tags.name.some(tag => tag === HIDDEN_PRODUCT_TAG );
 
-  return {
-    title: product.SEO.title || product.title,
-    description: product.SEO.description || product.description,
-    robots: {
-      index: hide,
-      follow: hide,
-      googleBot: {
-        index: hide,
-        follow: hide
-      }
-    },
-    openGraph: url
-      ? {
-          images: [
-            {
-              url,
-              width,
-              height,
-              alt
-            }
-          ]
-        }
-      : null
-  };
-}
+//   return {
+//     title: product.SEO.title || product.title,
+//     description: product.SEO.description || product.description,
+//     robots: {
+//       index: hide,
+//       follow: hide,
+//       googleBot: {
+//         index: hide,
+//         follow: hide
+//       }
+//     },
+//     openGraph: url
+//       ? {
+//           images: [
+//             {
+//               url,
+//               width,
+//               height,
+//               alt
+//             }
+//           ]
+//         }
+//       : null
+//   };
+// }
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const product = await getProduct(params.handle);
 
-  const minPrice = findWhere(product?.attributes.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
-  const maxPrice = findWhere(product?.attributes.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
-  
   if (!product) return notFound();
+
+  const minPrice = findWhere(product?.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
+  const maxPrice = findWhere(product?.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
 
   const productJsonLd = {
     '@context': 'https://schema.org',
@@ -75,9 +75,9 @@ export default async function ProductPage({ params }: { params: { handle: string
       availability: product.availableForSale
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: product?.priceRange.currencyCode, 
-      highPrice: maxPrice.amount,
-      lowPrice: minPrice.amount
+      priceCurrency: product?.priceRange.currencyCode,
+      highPrice: maxPrice?.amount,
+      lowPrice: minPrice?.amount
     }
   };
 
@@ -93,7 +93,7 @@ export default async function ProductPage({ params }: { params: { handle: string
         <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-4">
             <Gallery
-              images={product?.attributes.images.map((image: Image) => ({
+              images={product?.images.map((image: Image) => ({
                 src: image.url,
                 altText: image.altText
               }))}
@@ -101,12 +101,12 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
 
           <div className="py-6 pr-8 md:pr-12 lg:col-span-2">
-            <ProductDescription product={product?.attributes.description} />
+            <ProductDescription product={product} />
           </div>
         </div>
-        <Suspense>
+        {/* <Suspense>
           <RelatedProducts id={product?.id} />
-        </Suspense>
+        </Suspense> */}
       </div>
       <Suspense>
         <Footer />

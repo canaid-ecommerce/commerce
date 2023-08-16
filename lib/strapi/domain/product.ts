@@ -1,31 +1,32 @@
 import { SEO } from './components';
 
 export type Product = {
-    title: string;
-    description: string;
-    handle: string;
-    availableForSale: number;
-    descriptionHtml: string;
-    priceRange: PriceRange;
-    SEO: SEO;
-    images: Images;
-    //featuredImage: FeaturedImage;
-    tags : Tags;
+  id?: number;
+  title: string;
+  description: string;
+  handle: string;
+  availableForSale: number;
+  descriptionHtml: string;
+  priceRange: PriceRange;
+  SEO: SEO;
+  images: Images;
+  //featuredImage: FeaturedImage;
+  tags: Tags;
 };
 
 type PriceRange = {
-    amount: number;
-    currencyCode: string;
-    __typename: string;
+  amount: number;
+  currencyCode: string;
+  __typename: string;
 };
 
 type Images = {
-    url: string;
-    altText: string;
-    width: number;
-    height: number;
+  url: string;
+  altText: string;
+  width: number;
+  height: number;
 };
-  
+
 // type FeaturedImage = {
 //     url: string;
 //     altText: string;
@@ -34,19 +35,19 @@ type Images = {
 // };
 
 type Tags = {
-  name : string[]
+  name: string[]
 };
 
 export type StrapiProductOperation = {
-    data: {
-      product?: {
-        data: {
-          id: number;
-          attributes: Product;
-        };
+  data: {
+    product?: {
+      data: {
+        id: number;
+        attributes: Product;
       };
     };
-    variables: {
-      handle: string;
-    };
   };
+  variables: {
+    handle: string;
+  };
+};
