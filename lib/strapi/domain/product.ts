@@ -7,16 +7,16 @@ export type Product = {
   handle: string;
   availableForSale: number;
   descriptionHtml: string;
-  priceRange: PriceRange;
+  priceRange: PriceRange[];
   SEO: SEO;
-  images: Images;
+  images: Images[];
   //featuredImage: FeaturedImage;
   tags: Tags;
-  variants: Variants; 
+  variants: Variants;
 };
 
 type PriceRange = {
-  amount: number;
+  amount: number | string;
   currencyCode: string;
   __typename: string;
 };

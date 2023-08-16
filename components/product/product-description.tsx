@@ -1,9 +1,9 @@
 //import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
-import { Product } from 'lib/shopify/types';
 import { findWhere } from 'underscore';
 import { VariantSelector } from './variant-selector';
+import { Product } from 'lib/strapi/domain/product';
 
 export function ProductDescription({ product }: { product: Product }) {
   if (!product) return null;
@@ -18,12 +18,12 @@ export function ProductDescription({ product }: { product: Product }) {
         <h1 className="mb-2 text-5xl font-medium">{product.title}</h1>
         <div className="mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
           <Price
-            amount={maxPrice?.amount}
-            currencyCode={maxPrice?.currencyCode}
+            amount={String(maxPrice?.amount)}
+            currencyCode={String(maxPrice?.currencyCode)}
           />
         </div>
       </div>
-      <VariantSelector options={product.options} variants={product.variants} />
+      {/* <VariantSelector options={product.options} variants={product.variants} /> */}
 
       {product.descriptionHtml ? (
         <Prose
