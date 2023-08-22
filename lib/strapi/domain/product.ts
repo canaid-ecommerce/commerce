@@ -7,6 +7,7 @@ export type Product = {
   handle: string;
   availableForSale: number;
   descriptionHtml: string;
+  options: Options;
   priceRange: PriceRange[];
   SEO: SEO;
   images: Images[];
@@ -14,6 +15,12 @@ export type Product = {
   tags: Tags;
   variants: Variants;
 };
+
+type Options = {
+  id: number;
+  name: string;
+  value: string;
+}
 
 type PriceRange = {
   amount: number | string;

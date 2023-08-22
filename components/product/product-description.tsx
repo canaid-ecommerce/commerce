@@ -1,14 +1,20 @@
+import { findWhere } from 'underscore';
+
+//Components
 //import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
-import { findWhere } from 'underscore';
-import { VariantSelector } from './variant-selector';
+
+//Variants
+//import { VariantSelector } from './variant-selector';
+
+//lib
 import { Product } from 'lib/strapi/domain/product';
 
 export function ProductDescription({ product }: { product: Product }) {
   if (!product) return null;
 
-  console.log('Variants:', product.variants);
+  console.log(product.options)
 
   const maxPrice = findWhere(product?.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
 
@@ -23,6 +29,7 @@ export function ProductDescription({ product }: { product: Product }) {
           />
         </div>
       </div>
+      
       {/* <VariantSelector options={product.options} variants={product.variants} /> */}
 
       {product.descriptionHtml ? (

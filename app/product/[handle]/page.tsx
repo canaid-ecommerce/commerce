@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+//import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { findWhere } from 'underscore';
 
 //Components 
-import { GridTileImage } from 'components/grid/tile';
+//import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
@@ -33,6 +33,7 @@ export async function generateMetadata({
   return {
     title: product?.SEO.title || product?.title,
     description: product?.SEO.description || product?.description,
+    // TODO - [descripción del ajuste]
     // robots: {
     //   index: hide,
     //   follow: hide,
@@ -115,6 +116,7 @@ export default async function ProductPage({ params }: { params: { handle: string
   );
 };
 
+// TODO - [descripción del ajuste]
 // async function RelatedProducts({ id }: { id: string }) {
 //   const relatedProducts = await getProductRecommendations(id);
 
