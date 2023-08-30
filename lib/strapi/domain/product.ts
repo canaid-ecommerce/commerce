@@ -5,21 +5,22 @@ export type Product = {
   title: string;
   description: string;
   handle: string;
-  availableForSale: number;
+  availableForSale: boolean;
   descriptionHtml: string;
-  options: Options;
+  options: Options[];
   priceRange: PriceRange[];
   SEO: SEO;
   images: Images[];
-  //featuredImage: FeaturedImage;
   tags: Tags;
-  variants: Variants;
+  variants: Variants[];
 };
 
-type Options = {
+export type Options = {
   id: number;
   name: string;
-  value: string;
+  values: {
+    name: string;
+  }[];
 }
 
 type PriceRange = {
@@ -46,16 +47,17 @@ type Tags = {
   name: string[]
 };
 
-type Variants = {
+export type Variants = {
+  handle: string;
   title: string;
   availableForSale: boolean;
-  selectedOptions: SelectedOptions;
+  selectedOptions: SelectedOptions[];
   price: Price;
 };
 
 type SelectedOptions = {
   name: string;
-  value: number;
+  value: string;
 };
 
 type Price = {

@@ -5,36 +5,36 @@ import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 
-
 //components
 import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 
 //lib
-import { ProductVariant } from 'lib/strapi/domain/product';
+import { Variants } from 'lib/strapi/domain/product';
+import { v4 as uuidv4 } from 'uuid';
 
 
 export function AddToCart({
   variants,
   availableForSale
 }: {
-  variants: ProductVariant[];
+  variants: Variants[];
   availableForSale: boolean;
 }) {
-  const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id);
+  const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.handle);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    const variant = variants.find((variant: ProductVariant) =>
+    const variant = variants.find((variant: Variants) =>
       variant.selectedOptions.every(
         (option) => option.value === searchParams.get(option.name.toLowerCase())
       )
     );
 
     if (variant) {
-      setSelectedVariantId(variant.id);
+      setSelectedVariantId(variant.handle);
     }
   }, [searchParams, variants, setSelectedVariantId]);
 

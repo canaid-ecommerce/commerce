@@ -1,22 +1,31 @@
 import { findWhere } from 'underscore';
 
 //Components
-//import { AddToCart } from 'components/cart/add-to-cart';
+import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
 
 //Variants
-//import { VariantSelector } from './variant-selector';
+import { VariantSelector } from './variant-selector';
 
 //lib
 import { Product } from 'lib/strapi/domain/product';
+import { v4 as uuidv4 } from 'uuid';
 
 export function ProductDescription({ product }: { product: Product }) {
   if (!product) return null;
 
-  console.log(product.options)
-
   const maxPrice = findWhere(product?.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
+
+  // TODO: custom handle variant
+  const customVariants = product.variants.map(variant => {
+    return {
+      handle: uuidv4(),
+      ...variant
+    }
+  });
+
+  product.variants = [...customVariants];
 
   return (
     <>
@@ -29,7 +38,8 @@ export function ProductDescription({ product }: { product: Product }) {
           />
         </div>
       </div>
-      
+
+      {/* TODO - se comenta VariantSelector hasta que funcione bien el schema */}
       {/* <VariantSelector options={product.options} variants={product.variants} /> */}
 
       {product.descriptionHtml ? (
@@ -39,7 +49,7 @@ export function ProductDescription({ product }: { product: Product }) {
         />
       ) : null}
 
-      {/* <AddToCart variants={product.variants} availableForSale={product.availableForSale} /> */}
+      <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
     </>
   );
 }

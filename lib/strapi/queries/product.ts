@@ -59,6 +59,12 @@ query getProduct($handle: String!) {
           currencyCode
         }
       }
+      options {
+        name
+        values {
+          name
+        }
+      }
     }
   }
 }

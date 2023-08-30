@@ -1,10 +1,12 @@
 'use client';
 
 import clsx from 'clsx';
-import { ProductOption, ProductVariant } from 'lib/shopify/types';
+// import { ProductOption, ProductVariant } from 'lib/shopify/types';
+import { Options, Variants } from 'lib/strapi/domain/product'
 import { createUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 
 type ParamsMap = {
   [key: string]: string; // ie. { color: 'Red', size: 'Large', ... }
@@ -14,37 +16,46 @@ type OptimizedVariant = {
   id: string;
   availableForSale: boolean;
   params: URLSearchParams;
-  [key: string]: string | boolean | URLSearchParams; // ie. { color: 'Red', size: 'Large', ... }
+  [key: string]: string | boolean | URLSearchParams | number; // ie. { color: 'Red', size: 'Large', ... }
 };
 
 export function VariantSelector({
   options,
   variants
 }: {
-  options: ProductOption[];
-  variants: ProductVariant[];
+  options: Options[];
+  variants: Variants[];
 }) {
   const pathname = usePathname();
   const currentParams = useSearchParams();
   const router = useRouter();
-  const hasNoOptionsOrJustOneOption =
-    !options.length || (options.length === 1 && options[0]?.values.length === 1);
+  // TODO verificar bien la funcionalidad options
+  // const hasNoOptionsOrJustOneOption =
+  //   !options.length || (options.length === 1 && options[0]?.values.length === 1);
 
-  if (hasNoOptionsOrJustOneOption) {
-    return null;
-  }
+  // if (hasNoOptionsOrJustOneOption) {
+  //   return null;
+  // }
+
+  const optionsFilter = options.map(function (item) {
+    return {
+      ...item,
+      values: item.values.map(value => value.name)
+    }
+  });
 
   // Discard any unexpected options or values from url and create params map.
   const paramsMap: ParamsMap = Object.fromEntries(
     Array.from(currentParams.entries()).filter(([key, value]) =>
-      options.find((option) => option.name.toLowerCase() === key && option.values.includes(value))
+      optionsFilter.find((option) => option.name.toLowerCase() === key && option.values.includes(value))
     )
   );
 
   // Optimize variants for easier lookups.
   const optimizedVariants: OptimizedVariant[] = variants.map((variant) => {
     const optimized: OptimizedVariant = {
-      id: variant.id,
+      // TODO: change id for handle
+      id: uuidv4(),
       availableForSale: variant.availableForSale,
       params: new URLSearchParams()
     };
@@ -54,7 +65,7 @@ export function VariantSelector({
       const value = selectedOption.value;
 
       optimized[name] = value;
-      optimized.params.set(name, value);
+      optimized.params.set(name, String(value));
     });
 
     return optimized;
@@ -83,6 +94,8 @@ export function VariantSelector({
     router.replace(selectedVariantUrl);
   }
 
+  // return null
+
   return options.map((option) => (
     <dl className="mb-8" key={option.id}>
       <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
@@ -91,7 +104,7 @@ export function VariantSelector({
           // Base option params on selected variant params.
           const optionParams = new URLSearchParams(selectedVariantParams);
           // Update the params using the current option to reflect how the url would change.
-          optionParams.set(option.name.toLowerCase(), value);
+          optionParams.set(option.name.toLowerCase(), String(value));
 
           const optionUrl = createUrl(pathname, optionParams);
 

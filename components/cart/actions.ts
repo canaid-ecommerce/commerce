@@ -4,7 +4,8 @@ import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/
 import { cookies } from 'next/headers';
 
 export const addItem = async (variantId: string | undefined): Promise<Error | undefined> => {
-  let cartId = cookies().get('cartId')?.value;
+  // let cartId = cookies().get('cartId')?.value;
+  let cartId = null;
   let cart;
 
   if (cartId) {
@@ -13,18 +14,20 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
 
   if (!cartId || !cart) {
     cart = await createCart();
-    cartId = cart.id;
-    cookies().set('cartId', cartId);
+    console.log('create cart', cart);
+    // cartId = cart.id;
+    // cookies().set('cartId', cartId);
   }
 
-  if (!variantId) {
-    return new Error('Missing variantId');
-  }
-  try {
-    await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
-  } catch (e) {
-    return new Error('Error adding item', { cause: e });
-  }
+  // if (!variantId) {
+  //   return new Error('Missing variantId');
+  // }
+  // try {
+  //   await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
+  // } catch (e) {
+  //   return new Error('Error adding item', { cause: e });
+  // }
+  return undefined;
 };
 
 export const removeItem = async (lineId: string): Promise<Error | undefined> => {
