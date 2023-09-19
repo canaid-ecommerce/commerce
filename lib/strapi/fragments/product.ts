@@ -22,8 +22,9 @@ fragment product on Product {
     images {
       ...image
     }
-    ${MoneyFragment}
-    ${SeoFragment}
-    ${ImageFragment}
 }
+
+${MoneyFragment}
+${SeoFragment}
+${ImageFragment}
 `;
