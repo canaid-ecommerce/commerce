@@ -11,7 +11,7 @@ import LoadingDots from 'components/loading-dots';
 
 //lib
 import { Variants } from 'lib/strapi/domain/product';
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 
 export function AddToCart({
   variants,
@@ -54,6 +54,7 @@ export function AddToCart({
           }
 
           router.refresh();
+          console.log("Producto agregado al carrito:", selectedVariantId)
         });
       }}
       className={clsx(

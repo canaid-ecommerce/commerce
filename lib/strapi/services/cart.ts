@@ -1,7 +1,6 @@
-import { Cart, StrapiCreateCartOperation } from 'lib/strapi/domain/cart';
+import { Cart, StrapiAddToCartOperation, StrapiCreateCartOperation } from 'lib/strapi/domain/cart';
 import { strapiFetch } from '..';
-import { createCartMutation } from '../mutations/cart';
-import { getCartQuery } from '../queries/cart';
+import { addTocartMutation, createCartMutation } from '../mutations/cart';
 
 export async function createCart(): Promise<Cart> {
   const res = await strapiFetch<StrapiCreateCartOperation>({
@@ -12,25 +11,22 @@ export async function createCart(): Promise<Cart> {
     }
   });
 
-  if (!res.body?.data?.createCart?.data) {
-    console.error(`createCart error: `, res);
-  }
+  console.log(res)
 
-  return res.body?.data?.createCart?.data?.attributes;
-}
+  return res.body.data.createCart.cart;
+};
 
-export async function getCart(slug: string): Promise<Cart> {
-  const res = await strapiFetch<StrapiCreateCartOperation>({
-    query: getCartQuery,
-    cache: 'no-store',
+export async function addToCart(
+  cartId: string,
+  lines: { merchandiseId: string; quantity: number }[]): Promise<Cart> {
+  const res = await strapiFetch<StrapiAddToCartOperation>({
+    query: addTocartMutation,
     variables: {
-      slug
-    }
+      cartId,
+      lines
+    },
+    cache: 'no-store'
   });
 
-  if (!res.body?.data?.cart?.data) {
-    console.error(`cart ${slug} not found or unpublished`);
-  }
-
-  return res.body?.data?.cart?.data?.attributes;
-}
+  return res.body.data.cartLinesAdd.cart;
+};

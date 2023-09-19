@@ -58,3 +58,18 @@ export type StrapiCreateCartOperation = {
     slug?: string;
   };
 };
+
+export type StrapiAddToCartOperation = {
+  data: {
+    cartLinesAdd: {
+      cart: Cart
+    };
+  };
+  variables: {
+    cartId: string;
+    lines: {
+      merchandiseId: string;
+      quantity: number;
+    }[];
+  }
+}
