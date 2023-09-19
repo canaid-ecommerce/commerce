@@ -33,3 +33,18 @@ export type Cart = {
 export type StrapiCreateCartOperation = {
     data: { createCart: { cart: Cart } };
 };
+
+export type StrapiAddToCartOperation = {
+  data: {
+    cartLinesAdd: {
+      cart: Cart
+    };
+  };
+  variables: {
+    cartId: string;
+    lines: {
+      merchandiseId: string;
+      quantity: number;
+    }[];
+  }
+}

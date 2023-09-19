@@ -1,6 +1,6 @@
-import { Cart, StrapiCreateCartOperation } from 'lib/strapi/domain/cart';
+import { Cart, StrapiAddToCartOperation, StrapiCreateCartOperation } from 'lib/strapi/domain/cart';
 import { strapiFetch } from '..';
-import { createCartMutation } from '../mutations/cart';
+import { addTocartMutation, createCartMutation } from '../mutations/cart';
 
 export async function createCart(): Promise<Cart> {
     const res = await strapiFetch<StrapiCreateCartOperation>({
@@ -11,4 +11,19 @@ export async function createCart(): Promise<Cart> {
     console.log(res)
   
     return res.body.data.createCart.cart;
-}
+}; 
+
+export async function addToCart( 
+    cartId: string, 
+    lines: { merchandiseId: string; quantity: number }[] ): Promise<Cart> {
+    const res = await strapiFetch<StrapiAddToCartOperation>({
+    query: addTocartMutation,
+    variables: {
+      cartId,
+      lines
+    },
+    cache: 'no-store'
+  });
+
+  return res.body.data.cartLinesAdd.cart;
+};

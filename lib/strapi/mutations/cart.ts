@@ -12,3 +12,18 @@ mutation createCart($data: CartInput!) {
     }
 }
 `
+export const addTocartMutation = `
+mutation addToCart($cartId: String!, $lines: [CartLineInput!]!) {
+  addToCart(
+    cartId: $cartId,
+    lines: $lines
+  ) {
+    data {
+      id
+      attributes {
+        slug
+      }
+    }
+  }
+}
+`
