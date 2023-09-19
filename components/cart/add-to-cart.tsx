@@ -13,7 +13,6 @@ import LoadingDots from 'components/loading-dots';
 import { Variants } from 'lib/strapi/domain/product';
 import { v4 as uuidv4 } from 'uuid';
 
-
 export function AddToCart({
   variants,
   availableForSale
@@ -45,6 +44,8 @@ export function AddToCart({
       onClick={() => {
         if (!availableForSale) return;
         startTransition(async () => {
+          console.log(selectedVariantId);
+
           const error = await addItem(selectedVariantId);
 
           if (error) {

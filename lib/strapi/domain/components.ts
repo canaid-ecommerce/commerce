@@ -1,4 +1,4 @@
 export type SEO = {
-    title: string;
-    description: string;
+  title: string;
+  description: string;
 };

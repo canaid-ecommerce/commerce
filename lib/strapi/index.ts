@@ -23,6 +23,11 @@ export async function strapiFetch<T>({
   url?: string;
 }): Promise<{ status: number; body: T } | never> {
   try {
+    const buildBody = JSON.stringify({
+      ...(query && { query }),
+      ...(variables && { variables })
+    });
+
     const result = await fetch(url, {
       method: 'POST',
       headers: {
@@ -30,20 +35,18 @@ export async function strapiFetch<T>({
         'x-mock-match-request-body': 'true',
         ...headers
       },
-      body: JSON.stringify({
-        ...(query && { query }),
-        ...(variables && { variables })
-      }),
+      body: buildBody,
       cache,
       ...(tags && { next: { tags } })
     });
 
     const body = await result.json();
+    // console.log(body);
 
-    if (body.errors) {
-      console.error("Error query: ", query, body.errors);
-      // throw body.errors;
-    }
+    // if (body.error) {
+    //   // console.error("Error query: ", buildBody, body.errors);
+    //   // throw body.errors;
+    // }
 
     return {
       status: result.status,

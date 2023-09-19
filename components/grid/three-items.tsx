@@ -8,10 +8,11 @@ import { GridTileImage } from 'components/grid/tile';
 import type { Product } from 'lib/strapi/domain/product';
 import { getCollectionProducts } from 'lib/strapi/services/collection';
 
-
-function ThreeItemGridItem({ item, size }: { item: any, size: 'full' | 'half' }) {
+function ThreeItemGridItem({ item, size }: { item: any; size: 'full' | 'half' }) {
   const { attributes } = item;
-  const maxPrice = findWhere(attributes.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
+  const maxPrice = findWhere(attributes.priceRange, {
+    __typename: 'ComponentItemsMaxVariantPrice'
+  });
 
   return (
     <div
@@ -46,7 +47,8 @@ export async function ThreeItemGrid() {
     !Object.values(products)[0] ||
     !Object.values(products)[1] ||
     !Object.values(products)[2]
-  ) return null;
+  )
+    return null;
 
   const firstProduct = Object.values(products)[0],
     secondProduct = Object.values(products)[1],

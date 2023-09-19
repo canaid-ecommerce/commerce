@@ -11,4 +11,4 @@ mutation createCart($data: CartInput!) {
       }
     }
 }
-`
+`;

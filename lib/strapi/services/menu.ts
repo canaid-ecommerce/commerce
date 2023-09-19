@@ -11,7 +11,7 @@ export async function getMenu(handle: string): Promise<Menu[] | undefined> {
   });
 
   if (!res.body?.data?.menu?.data) {
-    console.error(`menu ${handle} not found or unpublished`)
+    console.error(`menu ${handle} not found or unpublished`);
   }
 
   return res.body?.data?.menu?.data?.attributes?.items;

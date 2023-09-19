@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 // import { ProductOption, ProductVariant } from 'lib/shopify/types';
-import { Options, Variants } from 'lib/strapi/domain/product'
+import { Options, Variants } from 'lib/strapi/domain/product';
 import { createUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -40,14 +40,16 @@ export function VariantSelector({
   const optionsFilter = options.map(function (item) {
     return {
       ...item,
-      values: item.values.map(value => value.name)
-    }
+      values: item.values.map((value) => value.name)
+    };
   });
 
   // Discard any unexpected options or values from url and create params map.
   const paramsMap: ParamsMap = Object.fromEntries(
     Array.from(currentParams.entries()).filter(([key, value]) =>
-      optionsFilter.find((option) => option.name.toLowerCase() === key && option.values.includes(value))
+      optionsFilter.find(
+        (option) => option.name.toLowerCase() === key && option.values.includes(value)
+      )
     )
   );
 

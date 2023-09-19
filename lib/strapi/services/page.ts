@@ -11,7 +11,7 @@ export async function getPage(handle: string): Promise<Page | undefined> {
   });
 
   if (!res.body?.data?.page?.data) {
-    console.error(`page ${handle} not found or unpublished`)
+    console.error(`page ${handle} not found or unpublished`);
   }
 
   return res.body?.data?.page?.data?.attributes;

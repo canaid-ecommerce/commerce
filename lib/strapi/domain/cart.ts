@@ -1,35 +1,60 @@
-//import { Product } from "./product";
+import { Product } from './product';
 
 export type Cart = {
   id: string;
-  slug : string;
-//   checkoutUrl: string;
-//   cost: {
-//     subtotalAmount: number;
-//     totalAmount: number;
-//     totalTaxAmount: number;
-//   };
-//   lines: CartItem;
-//   totalQuantity: number;
+  slug: string;
+  totalQuantity: number;
+  checkoutUrl: string;
+  cost: {
+    subtotalAmount: Money;
+    totalAmount: Money;
+    totalTaxAmount: Money;
+  };
+  lines: CartItem[];
 };
 
-// export type CartItem = {
-//     id: string;
-//     quantity: number;
-//     cost: {
-//       totalAmount: Number;
-//     };
-//     merchandise: {
-//       id: string;
-//       title: string;
-//       selectedOptions: {
-//         name: string;
-//         value: string;
-//       }[];
-//       product: Product;
-//     };
-// };
+export type CartItem = {
+  id: string;
+  slug: string;
+  quantity: number;
+  totalAmount: Money;
+  // cost: {
+  //   totalAmount: Money;
+  // };
+  merchandise: {
+    id: string;
+    title: string;
+    slug: string;
+    selectedOptions: {
+      name: string;
+      value: string;
+    }[];
+    product: Product;
+  };
+};
+
+export type Money = {
+  amount: string;
+  currencyCode: string;
+};
 
 export type StrapiCreateCartOperation = {
-    data: { createCart: { cart: Cart } };
+  data: {
+    createCart?: {
+      data: {
+        id: number;
+        attributes?: Cart;
+      };
+    };
+    cart?: {
+      data: {
+        id: number;
+        attributes?: Cart;
+      };
+    };
+  };
+  variables: {
+    data?: {};
+    slug?: string;
+  };
 };

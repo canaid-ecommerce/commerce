@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { findWhere } from 'underscore';
 
-//Components 
+//Components
 //import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
@@ -14,7 +14,6 @@ import { ProductDescription } from 'components/product/product-description';
 //import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { Image } from 'lib/shopify/types';
 import { getProduct } from 'lib/strapi/services/product';
-
 
 export const runtime = 'edge';
 
@@ -44,15 +43,15 @@ export async function generateMetadata({
     // },
     openGraph: url
       ? {
-        images: [
-          {
-            url,
-            width,
-            height,
-            alt
-          }
-        ]
-      }
+          images: [
+            {
+              url,
+              width,
+              height,
+              alt
+            }
+          ]
+        }
       : null
   };
 }
@@ -62,8 +61,8 @@ export default async function ProductPage({ params }: { params: { handle: string
 
   if (!product) return notFound();
 
-  const minPrice = findWhere(product?.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
-  const maxPrice = findWhere(product?.priceRange, { '__typename': 'ComponentItemsMaxVariantPrice' });
+  const minPrice = findWhere(product?.priceRange, { __typename: 'ComponentItemsMinVariantPrice' });
+  const maxPrice = findWhere(product?.priceRange, { __typename: 'ComponentItemsMaxVariantPrice' });
 
   const productJsonLd = {
     '@context': 'https://schema.org',
@@ -114,7 +113,7 @@ export default async function ProductPage({ params }: { params: { handle: string
       </Suspense>
     </>
   );
-};
+}
 
 // TODO - [descripción del ajuste]
 // async function RelatedProducts({ id }: { id: string }) {

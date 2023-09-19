@@ -9,8 +9,8 @@ export type Collection = {
   products?: {
     data?: {
       id: number;
-      attributes?: [Product] | undefined
-    }
+      attributes?: [Product] | undefined;
+    };
   };
   createdAt: string;
   updatedAt: string;

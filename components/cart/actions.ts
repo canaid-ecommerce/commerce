@@ -1,23 +1,24 @@
 'use server';
 
 import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
+import { createCart as createCart2, getCart as getCart2 } from 'lib/strapi/services/cart';
 import { cookies } from 'next/headers';
 
 export const addItem = async (variantId: string | undefined): Promise<Error | undefined> => {
-  // let cartId = cookies().get('cartId')?.value;
-  let cartId = null;
+  let cartId = cookies().get('cartId')?.value;
   let cart;
 
   if (cartId) {
-    cart = await getCart(cartId);
+    cart = await getCart2(cartId);
   }
 
   if (!cartId || !cart) {
-    cart = await createCart();
-    console.log('create cart', cart);
-    // cartId = cart.id;
-    // cookies().set('cartId', cartId);
+    cart = await createCart2();
+    cartId = cart?.slug;
+    cookies().set('cartId', cartId);
   }
+
+  console.log(cart);
 
   // if (!variantId) {
   //   return new Error('Missing variantId');

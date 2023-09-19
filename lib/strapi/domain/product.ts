@@ -10,6 +10,7 @@ export type Product = {
   options: Options[];
   priceRange: PriceRange[];
   SEO: SEO;
+  featuredImage: Images;
   images: Images[];
   tags: Tags;
   variants: Variants[];
@@ -21,7 +22,7 @@ export type Options = {
   values: {
     name: string;
   }[];
-}
+};
 
 type PriceRange = {
   amount: number | string;
@@ -36,15 +37,15 @@ type Images = {
   height: number;
 };
 
-// type FeaturedImage = {
-//     url: string;
-//     altText: string;
-//     width: number;
-//     height: number;
-// };
+type FeaturedImage = {
+  url: string;
+  altText: string;
+  width: number;
+  height: number;
+};
 
 type Tags = {
-  name: string[]
+  name: string[];
 };
 
 export type Variants = {
