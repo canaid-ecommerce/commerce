@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { findWhere } from 'underscore';
 
 // components
 import { GridTileImage } from './grid/tile';
@@ -16,10 +15,6 @@ export async function Carousel() {
       <div className="flex animate-carousel gap-4">
         {Array.isArray(products) &&
           products.map((product, i) => {
-            // const minPrice = findWhere(product.attributes.priceRange, { '__typename': 'ComponentItemsMinVariantPrice' });
-            const maxPrice = findWhere(product.attributes.priceRange, {
-              __typename: 'ComponentItemsMaxVariantPrice'
-            });
 
             return (
               <Link
@@ -31,8 +26,8 @@ export async function Carousel() {
                   alt={product?.attributes?.title}
                   label={{
                     title: product?.attributes?.title,
-                    amount: maxPrice?.amount,
-                    currencyCode: maxPrice?.currencyCode
+                    amount: product?.attributes?.maxVariantPrice?.amount,
+                    currencyCode: product?.attributes?.maxVariantPrice?.currencyCode
                   }}
                   src={product?.attributes?.featuredImage?.url}
                   width={product?.attributes?.featuredImage?.width}

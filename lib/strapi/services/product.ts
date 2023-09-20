@@ -14,6 +14,9 @@ export async function getProduct(handle: string): Promise<Product> {
     console.error(`product ${handle} not found or unpublished`);
   }
 
+  console.log(res);
+  
+
   return {
     ...(res.body.data.product?.data?.attributes as Product),
     id: res.body.data.product?.data?.id

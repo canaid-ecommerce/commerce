@@ -1,18 +1,13 @@
 import Link from 'next/link';
-import { findWhere, max } from 'underscore';
 
 //components
 import { GridTileImage } from 'components/grid/tile';
 
 //lib
-import type { Product } from 'lib/strapi/domain/product';
 import { getCollectionProducts } from 'lib/strapi/services/collection';
 
 function ThreeItemGridItem({ item, size }: { item: any; size: 'full' | 'half' }) {
   const { attributes } = item;
-  const maxPrice = findWhere(attributes.priceRange, {
-    __typename: 'ComponentItemsMaxVariantPrice'
-  });
 
   return (
     <div
@@ -28,8 +23,8 @@ function ThreeItemGridItem({ item, size }: { item: any; size: 'full' | 'half' })
           label={{
             position: size === 'full' ? 'center' : 'bottom',
             title: attributes.title as string,
-            amount: maxPrice?.amount,
-            currencyCode: maxPrice?.currencyCode
+            amount: attributes.maxVariantPrice.amount,
+            currencyCode: attributes.maxVariantPrice.currencyCode
           }}
         />
       </Link>
