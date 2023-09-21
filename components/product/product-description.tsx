@@ -18,14 +18,14 @@ export function ProductDescription({ product }: { product: Product }) {
   const maxPrice = findWhere(product?.priceRange, { __typename: 'ComponentItemsMaxVariantPrice' });
 
   // TODO: custom handle variant
-  const customVariants = product.variants.map((variant) => {
-    return {
-      handle: uuidv4(),
-      ...variant
-    };
-  });
+  // const customVariants = product.variants.map((variant) => {
+  //   return {
+  //     handle: uuidv4(),
+  //     ...variant
+  //   };
+  // });
 
-  product.variants = [...customVariants];
+  // product.variants = [...customVariants];
 
   return (
     <>

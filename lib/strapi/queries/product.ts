@@ -13,7 +13,4 @@ query Product($handle: String!) {
   }
 }
 ${ProductFragment}
-${MoneyFragment}
-${ImageFragment}
-${SeoFragment}
 `;
