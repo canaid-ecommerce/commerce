@@ -10,8 +10,6 @@ export async function getProduct(handle: string): Promise<Product> {
     }
   });
 
-  console.log("res", res);
-
   if (!res.body.data.product?.data?.attributes) {
     console.error(`product ${handle} not found or unpublished`);
   }

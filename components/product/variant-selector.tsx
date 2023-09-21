@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 // import { ProductOption, ProductVariant } from 'lib/shopify/types';
-import { Options, Variants } from 'lib/strapi/domain/product';
+import { Options, Variants } from 'lib/strapi/domain/components';
 import { createUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';

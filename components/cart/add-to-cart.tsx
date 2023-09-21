@@ -10,7 +10,7 @@ import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 
 //lib
-import { Variants } from 'lib/strapi/domain/product';
+import { Variants } from 'lib/strapi/domain/components';
 //import { v4 as uuidv4 } from 'uuid';
 
 export function AddToCart({

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 //import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { findWhere } from 'underscore';
 
 //Components
 //import { GridTileImage } from 'components/grid/tile';
@@ -17,68 +16,65 @@ import { getProduct } from 'lib/strapi/services/product';
 
 export const runtime = 'edge';
 
-// export async function generateMetadata({
-//   params
-// }: {
-//   params: { handle: string };
-// }): Promise<Metadata> {
-//   const product = await getProduct(params.handle);
-//   //console.log('Datos del producto:', product)
+export async function generateMetadata({
+  params
+}: {
+  params: { handle: string };
+}): Promise<Metadata> {
+  const product = await getProduct(params.handle);
+  console.log('Datos del producto:', product)
 
-//   if (!product) return notFound();
+  if (!product) return notFound();
 
-//   const { url, width, height, altText: alt } = product?.images[0] || {};
-//   // const hide = product?.tags.name.some(tag => tag === HIDDEN_PRODUCT_TAG );
+  const { url, width, height, altText: alt } = product?.images || {};
+  // const hide = product?.tags.name.some(tag => tag === HIDDEN_PRODUCT_TAG );
 
-//   return {
-//     title: product?.SEO.title || product?.title,
-//     description: product?.SEO.description || product?.description,
-//     // TODO - [descripción del ajuste]
-//     // robots: {
-//     //   index: hide,
-//     //   follow: hide,
-//     //   googleBot: {
-//     //     index: hide,
-//     //     follow: hide
-//     //   }
-//     // },
-//     openGraph: url
-//       ? {
-//           images: [
-//             {
-//               url,
-//               width,
-//               height,
-//               alt
-//             }
-//           ]
-//         }
-//       : null
-//   };
-// }
+  return {
+    title: product?.SEO.title || product?.title,
+    description: product?.SEO.description || product?.description,
+    // TODO - [descripción del ajuste]
+    // robots: {
+    //   index: hide,
+    //   follow: hide,
+    //   googleBot: {
+    //     index: hide,
+    //     follow: hide
+    //   }
+    // },
+    openGraph: url
+      ? {
+          images: [
+            {
+              url,
+              width,
+              height,
+              alt
+            }
+          ]
+        }
+      : null
+  };
+}
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const product = await getProduct(params.handle);
 
   if (!product) return notFound();
 
-  const minPrice = findWhere(product?.priceRange, { __typename: 'ComponentItemsMinVariantPrice' });
-  const maxPrice = findWhere(product?.priceRange, { __typename: 'ComponentItemsMaxVariantPrice' });
-
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product?.title,
     description: product?.description,
-    image: product?.images[0]?.url,
+    image: product?.images.url,
     offers: {
       '@type': 'AggregateOffer',
       availability: product.availableForSale
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: maxPrice?.currencyCode,
-      highPrice: maxPrice?.amount,
-      lowPrice: minPrice?.amount
+      priceCurrency: product?.maxVariantPrice?.currencyCode,
+      highPrice: product?.maxVariantPrice?.amount,
+      lowPrice: product?.minVariantPrice
     }
   };
 
