@@ -11,7 +11,7 @@ import { ProductDescription } from 'components/product/product-description';
 
 //lib
 //import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { Image } from 'lib/shopify/types';
+//import { Images } from 'lib/strapi/domain/components';
 import { getProduct } from 'lib/strapi/services/product';
 
 export const runtime = 'edge';
@@ -22,7 +22,6 @@ export async function generateMetadata({
   params: { handle: string };
 }): Promise<Metadata> {
   const product = await getProduct(params.handle);
-  console.log('Datos del producto:', product)
 
   if (!product) return notFound();
 
@@ -90,10 +89,12 @@ export default async function ProductPage({ params }: { params: { handle: string
         <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-4">
             <Gallery
-              images={product?.images.map((image: Image) => ({
-                src: image.url,
-                altText: image.altText
-              }))}
+              images={[
+                {
+                  src: product.images.url,
+                  altText: product.images.altText
+                }
+              ]}
             />
           </div>
 

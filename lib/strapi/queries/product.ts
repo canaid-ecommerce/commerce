@@ -1,4 +1,3 @@
-import { ImageFragment, MoneyFragment, SeoFragment } from "../fragments/components";
 import { ProductFragment } from "../fragments/product";
 
 export const getProductQuery = `
