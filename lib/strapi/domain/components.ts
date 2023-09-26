@@ -42,19 +42,16 @@ export type Tags = {
 };
 
 export type Variants = {
-  handle: string;
+  id : number;
   title: string;
+  handle: string;
   availableForSale: boolean;
-  selectedOptions: SelectedOptions[];
-  price: Price;
+  maxPrice: Money;
+  minPrice: Money;
+  options: SelectedOptions[];  
 };
 
 type SelectedOptions = {
   name: string;
   value: string;
-};
-
-type Price = {
-  amount: number;
-  currencyCode: string;
 };

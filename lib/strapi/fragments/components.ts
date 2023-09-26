@@ -21,3 +21,23 @@ fragment image on ComponentItemsImage {
     handle
 }
 `
+export const VariantsFragment = `
+fragment variant on ComponentItemsVariants {
+    id
+    title
+    handle
+    availableForSale
+    maxPrice {
+      amount
+      currencyCode
+    }
+    minPrice {
+      amount
+      currencyCode
+    }
+    options {
+      title
+      options
+    }
+}
+`
