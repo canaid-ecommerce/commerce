@@ -11,7 +11,7 @@ import { ProductDescription } from 'components/product/product-description';
 
 //lib
 //import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-//import { Images } from 'lib/strapi/domain/components';
+import { Images } from 'lib/strapi/domain/components';
 import { getProduct } from 'lib/strapi/services/product';
 
 export const runtime = 'edge';
@@ -42,22 +42,21 @@ export async function generateMetadata({
     // },
     openGraph: url
       ? {
-          images: [
-            {
-              url,
-              width,
-              height,
-              alt
-            }
-          ]
-        }
+        images: [
+          {
+            url,
+            width,
+            height,
+            alt
+          }
+        ]
+      }
       : null
   };
 }
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const product = await getProduct(params.handle);
-
   if (!product) return notFound();
 
   const productJsonLd = {
@@ -65,7 +64,7 @@ export default async function ProductPage({ params }: { params: { handle: string
     '@type': 'Product',
     name: product?.title,
     description: product?.description,
-    image: product?.images.url,
+    image: product?.images?.url,
     offers: {
       '@type': 'AggregateOffer',
       availability: product.availableForSale
@@ -89,12 +88,10 @@ export default async function ProductPage({ params }: { params: { handle: string
         <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-4">
             <Gallery
-              images={[
-                {
-                  src: product.images.url,
-                  altText: product.images.altText
-                }
-              ]}
+              images={product.images.map((image: Images) => ({
+                src: image.url,
+                altText: image.altText
+              }))}
             />
           </div>
 

@@ -7,11 +7,11 @@ export type Product = {
   handle: string;
   availableForSale: boolean;
   descriptionHtml: string;
-  maxVariantPrice : Money;
-  minVariantPrice : null;
-  featuredImage : FeaturedImage;
-  SEO : SEO;
-  images : Images;
+  maxVariantPrice: Money;
+  minVariantPrice: null;
+  featuredImage: FeaturedImage;
+  SEO: SEO;
+  images: Images[];
 };
 
 export type StrapiProductOperation = {
