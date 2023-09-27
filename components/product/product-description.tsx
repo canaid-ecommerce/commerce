@@ -1,5 +1,4 @@
 //Components
-//import { AddToCart } from 'components/cart/add-to-cart';
 import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
@@ -9,23 +8,9 @@ import Prose from 'components/prose';
 
 //lib
 import { Product } from 'lib/strapi/domain/product';
-//import { v4 as uuidv4 } from 'uuid';
 
 export function ProductDescription({ product }: { product: Product }) {
   if (!product) return null;
-
-  console.log(product);
-
-
-  // TODO: custom handle variant
-  // const customVariants = product.variants.map((variant) => {
-  //   return {
-  //     handle: uuidv4(),
-  //     ...variant
-  //   };
-  // });
-
-  // product.variants = [...customVariants];
 
   return (
     <>
@@ -46,7 +31,7 @@ export function ProductDescription({ product }: { product: Product }) {
         />
       ) : null}
 
-      {/* <AddToCart variants={product.variants} availableForSale={product.availableForSale} /> */}
+      <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
     </>
   );
 }

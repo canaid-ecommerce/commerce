@@ -18,9 +18,6 @@ export type CartItem = {
   slug: string;
   quantity: number;
   totalAmount: Money;
-  // cost: {
-  //   totalAmount: Money;
-  // };
   merchandise: {
     id: string;
     title: string;
@@ -40,13 +37,13 @@ export type Money = {
 
 export type StrapiCreateCartOperation = {
   data: {
-    createCart?: {
+    createCart: {
       data: {
         id: number;
         attributes?: Cart;
       };
     };
-    cart?: {
+    cart: {
       data: {
         id: number;
         attributes?: Cart;

@@ -2,7 +2,11 @@ import { Cart, StrapiAddToCartOperation, StrapiCreateCartOperation } from 'lib/s
 import { strapiFetch } from '..';
 import { addTocartMutation, createCartMutation } from '../mutations/cart';
 
-export async function createCart(): Promise<Cart> {
+export async function getCart(cartId: string) {
+
+}
+
+export async function createCart(): Promise<Cart | undefined> {
   const res = await strapiFetch<StrapiCreateCartOperation>({
     query: createCartMutation,
     cache: 'no-store',
@@ -11,9 +15,11 @@ export async function createCart(): Promise<Cart> {
     }
   });
 
-  console.log(res)
+  if (!res.body.data.createCart?.data) {
+    console.error(`createCart error: ${res.body}`);
+  }
 
-  return res.body.data.createCart.cart;
+  return res.body.data.createCart?.data?.attributes;
 };
 
 export async function addToCart(

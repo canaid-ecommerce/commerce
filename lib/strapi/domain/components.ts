@@ -1,5 +1,5 @@
 export type Money = {
-  amount : number;
+  amount: number;
   currencyCode: string;
 }
 
@@ -42,16 +42,16 @@ export type Tags = {
 };
 
 export type Variants = {
-  id : number;
+  id: number;
   title: string;
   handle: string;
   availableForSale: boolean;
   maxPrice: Money;
   minPrice: Money;
-  options: SelectedOptions[];  
+  options: SelectedOptions[];
 };
 
 type SelectedOptions = {
-  name: string;
+  title: string;
   value: string;
 };

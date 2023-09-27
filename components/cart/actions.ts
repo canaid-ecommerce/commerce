@@ -1,19 +1,20 @@
 'use server';
 
-import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
-import { createCart as createCart2, getCart as getCart2 } from 'lib/strapi/services/cart';
+//import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
+import { removeFromCart } from 'lib/shopify';
+import { createCart, getCart } from 'lib/strapi/services/cart';
 import { cookies } from 'next/headers';
 
-export const addItem = async (variantId: string | undefined): Promise<Error | undefined> => {
+export const addItem = async (variantId: string | number): Promise<Error | undefined> => {
   let cartId = cookies().get('cartId')?.value;
-  let cart;
+  let cart = null;
 
   if (cartId) {
-    cart = await getCart2(cartId);
+    cart = await getCart(cartId);
   }
 
   if (!cartId || !cart) {
-    cart = await createCart2();
+    cart = await createCart();
     cartId = cart?.slug;
     cookies().set('cartId', cartId);
   }
