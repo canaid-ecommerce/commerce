@@ -1,38 +1,32 @@
+//import { Money } from './components';
 import { Product } from './product';
 
 export type Cart = {
-  id: string;
-  slug: string;
+  handle: string;
   totalQuantity: number;
-  checkoutUrl: string;
-  cost: {
-    subtotalAmount: Money;
-    totalAmount: Money;
-    totalTaxAmount: Money;
-  };
-  lines: CartItem[];
+  products: {
+    handle: string;
+    quantity: number;
+    totalAmount: {
+      amount: number;
+      currencyCode: string;
+    };
+  }
+  product: Product;  
 };
 
-export type CartItem = {
-  id: string;
-  slug: string;
-  quantity: number;
-  totalAmount: Money;
-  merchandise: {
-    id: string;
-    title: string;
-    slug: string;
-    selectedOptions: {
-      name: string;
-      value: string;
-    }[];
-    product: Product;
+export type StrapiCartOperation = {
+  data: {
+    cart?: {
+      data: {
+        id: string;
+        attributes: Cart;
+      };
+    };
   };
-};
-
-export type Money = {
-  amount: string;
-  currencyCode: string;
+  variables: {
+    handle: string;
+  };
 };
 
 export type StrapiCreateCartOperation = {
@@ -58,14 +52,18 @@ export type StrapiCreateCartOperation = {
 
 export type StrapiAddToCartOperation = {
   data: {
-    cartLinesAdd: {
-      cart: Cart
+    addToCart: {
+      data: {
+        id: number;
+        attributes?: Cart;
+      }
     };
   };
   variables: {
     cartId: string;
     lines: {
-      merchandiseId: string;
+      productId: string; 
+      variantId: string;
       quantity: number;
     }[];
   }
