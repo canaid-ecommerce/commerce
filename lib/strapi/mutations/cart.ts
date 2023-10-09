@@ -1,3 +1,5 @@
+import { ProductFragment } from "../fragments/product";
+
 export const createCartMutation = `
 mutation createCart($data: CartInput!) {
   createCart(
@@ -40,4 +42,5 @@ mutation addToCart($cartId: String!, $lines: [CartLineInput!]!) {
     }
   }
 }
+${ProductFragment}
 `

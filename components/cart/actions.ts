@@ -5,7 +5,7 @@ import { removeFromCart } from 'lib/shopify';
 import { addToCart, createCart, getCart } from 'lib/strapi/services/cart';
 import { cookies } from 'next/headers';
 
-export const addItem = async (handle: string, variantId: string | number): Promise<Error | undefined> => {
+export const addItem = async (handle: string, variantId: string): Promise<Error | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart = null;
 
@@ -15,22 +15,24 @@ export const addItem = async (handle: string, variantId: string | number): Promi
 
   if (!cartId || !cart) {
     cart = await createCart();
-    cartId = cart.handle;
-    cookies().set('cartId', cartId);
+    if (cart) {
+      cartId = cart.handle;
+      cookies().set('cartId', cartId);
+    }
   }
 
   if (!variantId) {
     return new Error('Missing variantId');
   }
 
-  const Lines = [
-    { productId: handle, variantId: variantId , quantity: 1},
+  const lines = [
+    { productId: handle, variantId: variantId, quantity: 1 },
   ]
 
-  try {
-    await addToCart(cartId, Lines);
-    // console.log('addToCart response:', addToCart)
+  if (!cartId) return new Error('Missing cartId');
 
+  try {
+    await addToCart(cartId, lines);
   } catch (e) {
     return new Error('Error adding item', { cause: e });
   }

@@ -11,8 +11,8 @@ export type Cart = {
       amount: number;
       currencyCode: string;
     };
-  }
-  product: Product;  
+  }[];
+  product: Product;
 };
 
 export type StrapiCartOperation = {
@@ -62,7 +62,7 @@ export type StrapiAddToCartOperation = {
   variables: {
     cartId: string;
     lines: {
-      productId: string; 
+      productId: string;
       variantId: string;
       quantity: number;
     }[];

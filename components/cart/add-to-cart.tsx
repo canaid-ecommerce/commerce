@@ -44,7 +44,7 @@ export function AddToCart({
         // console.log('handle:', handle);
 
         startTransition(async () => {
-          const error = await addItem( handle, selectedVariantId );
+          const error = await addItem(handle, selectedVariantId);
 
           // if (error) {
           //   // Trigger the error boundary in the root error.js

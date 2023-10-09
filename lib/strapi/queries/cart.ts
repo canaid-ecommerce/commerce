@@ -1,3 +1,5 @@
+import { ProductFragment } from "../fragments/product";
+
 export const getCartQuery = `
 query getCart($handle: String!) {
   cart(handle: $handle) {
@@ -14,9 +16,18 @@ query getCart($handle: String!) {
             currencyCode
           }
           variant
+          product {
+            data {
+              id
+              attributes {
+                ...product
+              }
+            }
+          }
         }
       }
     }
   }
 }
+${ProductFragment}
 `;
