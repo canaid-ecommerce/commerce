@@ -1,4 +1,3 @@
-//import { Money } from './components';
 import { Product } from './product';
 
 export type Cart = {
@@ -7,12 +6,13 @@ export type Cart = {
   products: {
     handle: string;
     quantity: number;
-    totalAmount: {
-      amount: number;
-      currencyCode: string;
+    totalAmount: null;
+    product: {
+      data: {
+        attributes: Product;
+      }
     };
   }[];
-  product: Product;
 };
 
 export type StrapiCartOperation = {

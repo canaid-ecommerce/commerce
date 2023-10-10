@@ -2,16 +2,16 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-import Price from 'components/price';
-import { DEFAULT_OPTION } from 'lib/constants';
+//import Price from 'components/price';
+//import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/strapi/domain/cart';
-import { createUrl } from 'lib/utils';
-import Image from 'next/image';
+// import { createUrl } from 'lib/utils';
+//import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import CloseCart from './close-cart';
-import DeleteItemButton from './delete-item-button';
-import EditItemQuantityButton from './edit-item-quantity-button';
+// import DeleteItemButton from './delete-item-button';
+//import EditItemQuantityButton from './edit-item-quantity-button';
 import OpenCart from './open-cart';
 
 type MerchandiseSearchParams = {
@@ -19,7 +19,7 @@ type MerchandiseSearchParams = {
 };
 
 export default function CartModal({ cart }: { cart: Cart | undefined }) {
-  console.log(cart);
+  //console.log(cart);
 
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
@@ -84,7 +84,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
                   <ul className="flex-grow overflow-auto py-4">
                     {cart.products.map((item, i) => {
-                      // console.log(item);
+                      console.log('ITEM', item.product.data.attributes.handle);
 
                       // const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
@@ -119,20 +119,20 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                   width={64}
                                   height={64}
                                   alt={
-                                    item.merchandise.product.featuredImage.altText ||
-                                    item.merchandise.product.title
+                                    item.product.data.attributes.featuredImage.altText ||
+                                    item.product.data.attributes.title
                                   }
-                                  src={item.merchandise.product.featuredImage.url}
+                                  src={item.product.data.attributes.featuredImage.url}
                                 /> */}
                               </div>
 
                               {/* <div className="flex flex-1 flex-col text-base">
                                 <span className="leading-tight">
-                                  {item.merchandise.product.title}
+                                  {item.product.data.attributes.title}
                                 </span>
-                                {item.merchandise.title !== DEFAULT_OPTION ? (
+                                {item.product.data.attributes.title !== DEFAULT_OPTION ? (
                                   <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                                    {item.merchandise.title}
+                                    {item.product.data.attributes.title}
                                   </p>
                                 ) : null}
                               </div> */}
@@ -140,8 +140,8 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                             <div className="flex h-16 flex-col justify-between">
                               {/* <Price
                                 className="flex justify-end space-y-2 text-right text-sm"
-                                amount={item.cost.totalAmount.amount}
-                                currencyCode={item.cost.totalAmount.currencyCode}
+                                amount={item.product.data.attributes.maxVariantPrice.amount}
+                                currencyCode={item.product.data.attributes.maxVariantPrice.currencyCode}
                               /> */}
                               <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
                                 {/* <EditItemQuantityButton item={item} type="minus" /> */}
