@@ -5,7 +5,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 //import Price from 'components/price';
 //import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/strapi/domain/cart';
-// import { createUrl } from 'lib/utils';
+import { createUrl } from 'lib/utils';
 //import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
@@ -86,7 +86,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                     {cart.products.map((item, i) => {
                       console.log('ITEM', item.product.data.attributes.handle);
 
-                      // const merchandiseSearchParams = {} as MerchandiseSearchParams;
+                      const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
                       // item.merchandise.selectedOptions.forEach(({ name, value }) => {
                       //   if (value !== DEFAULT_OPTION) {
@@ -94,10 +94,10 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       //   }
                       // });
 
-                      // const merchandiseUrl = createUrl(
-                      //   `/product/${item.merchandise.product.handle}`,
-                      //   new URLSearchParams(merchandiseSearchParams)
-                      // );
+                      const merchandiseUrl = createUrl(
+                        `/product/${item.product.data.attributes.handle}`,
+                        new URLSearchParams(merchandiseSearchParams)
+                      );
 
                       return (
                         <li
@@ -109,7 +109,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                               {/* <DeleteItemButton item={item} /> */}
                             </div>
                             <Link
-                              href={"merchandiseUrl"}
+                              href={merchandiseUrl}
                               onClick={closeCart}
                               className="z-30 flex flex-row space-x-4"
                             >
