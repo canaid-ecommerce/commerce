@@ -6,8 +6,12 @@ query getCart($handle: String!) {
     data {
       id
       attributes {
-        totalQuantity
         handle
+        totalQuantity
+        totalAmount {
+          amount
+          currencyCode
+        }
         products {
           quantity
           handle

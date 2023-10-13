@@ -14,14 +14,18 @@ mutation createCart($data: CartInput!) {
   }
 }
 `
-export const addToCartMutation = `
-mutation addToCart($cartId: String!, $lines: [CartLineInput!]!) {
-  addToCart(cartId: $cartId, lines: $lines) {
+export const updateToCartMutation = `
+mutation updateToCart($cartId: String!, $lines: [CartLineInput!]!) {
+  updateToCart(cartId: $cartId, lines: $lines) {
     data {
       id
       attributes {
         handle
         totalQuantity
+        totalAmount {
+          amount
+          currencyCode
+        }
         products {
           handle
           quantity

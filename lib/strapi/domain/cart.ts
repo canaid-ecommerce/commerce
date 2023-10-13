@@ -1,12 +1,14 @@
+import { Money } from './components';
 import { Product } from './product';
 
 export type Cart = {
   handle: string;
   totalQuantity: number;
+  totalAmount: Money;
   products: {
     handle: string;
     quantity: number;
-    totalAmount: null;
+    totalAmount: Money;
     product: {
       data: {
         attributes: Product;
@@ -50,9 +52,9 @@ export type StrapiCreateCartOperation = {
   };
 };
 
-export type StrapiAddToCartOperation = {
+export type StrapiUpdateCartOperation = {
   data: {
-    addToCart: {
+    updateToCart: {
       data: {
         id: number;
         attributes?: Cart;
@@ -66,5 +68,5 @@ export type StrapiAddToCartOperation = {
       variantId: string;
       quantity: number;
     }[];
-  }
-}
+  };
+};

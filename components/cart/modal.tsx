@@ -2,11 +2,11 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
-//import Price from 'components/price';
-//import { DEFAULT_OPTION } from 'lib/constants';
+import Price from 'components/price';
+import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/strapi/domain/cart';
 import { createUrl } from 'lib/utils';
-//import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import CloseCart from './close-cart';
@@ -19,7 +19,6 @@ type MerchandiseSearchParams = {
 };
 
 export default function CartModal({ cart }: { cart: Cart | undefined }) {
-  //console.log(cart);
 
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
@@ -84,7 +83,6 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
                   <ul className="flex-grow overflow-auto py-4">
                     {cart.products.map((item, i) => {
-                      console.log('ITEM', item.product.data.attributes.handle);
 
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
@@ -114,7 +112,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                               className="z-30 flex flex-row space-x-4"
                             >
                               <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
-                                {/* <Image
+                                <Image
                                   className="h-full w-full object-cover"
                                   width={64}
                                   height={64}
@@ -123,10 +121,10 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                     item.product.data.attributes.title
                                   }
                                   src={item.product.data.attributes.featuredImage.url}
-                                /> */}
+                                />
                               </div>
 
-                              {/* <div className="flex flex-1 flex-col text-base">
+                              <div className="flex flex-1 flex-col text-base">
                                 <span className="leading-tight">
                                   {item.product.data.attributes.title}
                                 </span>
@@ -135,14 +133,14 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                     {item.product.data.attributes.title}
                                   </p>
                                 ) : null}
-                              </div> */}
+                              </div>
                             </Link>
                             <div className="flex h-16 flex-col justify-between">
-                              {/* <Price
+                              <Price
                                 className="flex justify-end space-y-2 text-right text-sm"
-                                amount={item.product.data.attributes.maxVariantPrice.amount}
+                                amount={item.product.data.attributes.maxVariantPrice.amount.toString()}
                                 currencyCode={item.product.data.attributes.maxVariantPrice.currencyCode}
-                              /> */}
+                              />
                               <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
                                 {/* <EditItemQuantityButton item={item} type="minus" /> */}
                                 <p className="w-6 text-center">
@@ -159,11 +157,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                   <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
                       <p>Taxes</p>
-                      {/* <Price
+                      <Price
                         className="text-right text-base text-black dark:text-white"
-                        amount={cart.cost.totalTaxAmount.amount}
-                        currencyCode={cart.cost.totalTaxAmount.currencyCode}
-                      /> */}
+                        amount={cart.totalAmount.amount.toString()}
+                        currencyCode={cart.totalAmount.currencyCode}
+                      />
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                       <p>Shipping</p>
@@ -171,11 +169,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                       <p>Total</p>
-                      {/* <Price
+                      <Price
                         className="text-right text-base text-black dark:text-white"
-                        amount={cart.cost.totalAmount.amount}
-                        currencyCode={cart.cost.totalAmount.currencyCode}
-                      /> */}
+                        amount={cart.totalAmount.amount.toString()}
+                        currencyCode={cart.totalAmount.currencyCode}
+                      />
                     </div>
                   </div>
                   <a

@@ -1,6 +1,6 @@
-import { Cart, StrapiAddToCartOperation, StrapiCartOperation, StrapiCreateCartOperation } from 'lib/strapi/domain/cart';
+import { Cart, StrapiCartOperation, StrapiCreateCartOperation, StrapiUpdateCartOperation } from 'lib/strapi/domain/cart';
 import { strapiFetch } from '..';
-import { addToCartMutation, createCartMutation } from '../mutations/cart';
+import { createCartMutation, updateToCartMutation } from '../mutations/cart';
 import { getCartQuery } from '../queries/cart';
 
 export async function getCart(handle: string): Promise<Cart | undefined> {
@@ -32,20 +32,20 @@ export async function createCart(): Promise<Cart | undefined> {
   return res.body.data.createCart?.data?.attributes;
 };
 
-export async function addToCart(
+export async function updateToCart(
   cartId: string,
   lines: { productId: string; variantId: string, quantity: number }[]): Promise<Cart | undefined> {
-  const res = await strapiFetch<StrapiAddToCartOperation>({
-    query: addToCartMutation,
+  const res = await strapiFetch<StrapiUpdateCartOperation>({
+    query: updateToCartMutation,
     variables: {
       cartId,
       lines
     },
   });
 
-  if (!res.body.data.addToCart.data.attributes) {
+  if (!res.body.data.updateToCart.data.attributes) {
     return undefined
   };
 
-  return res.body.data.addToCart.data.attributes
+  return res.body.data.updateToCart.data.attributes
 };

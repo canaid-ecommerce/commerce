@@ -2,7 +2,7 @@
 
 //import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { removeFromCart } from 'lib/shopify';
-import { addToCart, createCart, getCart } from 'lib/strapi/services/cart';
+import { createCart, getCart, updateToCart } from 'lib/strapi/services/cart';
 import { cookies } from 'next/headers';
 
 export const addItem = async (handle: string, variantId: string): Promise<Error | undefined> => {
@@ -32,7 +32,7 @@ export const addItem = async (handle: string, variantId: string): Promise<Error 
   if (!cartId) return new Error('Missing cartId');
 
   try {
-    await addToCart(cartId, lines);
+    await updateToCart(cartId, lines);
   } catch (e) {
     return new Error('Error adding item', { cause: e });
   }
@@ -54,11 +54,11 @@ export const removeItem = async (lineId: string): Promise<Error | undefined> => 
 };
 
 export const updateItemQuantity = async ({
-  lineId,
+  productId,
   variantId,
   quantity
 }: {
-  lineId: string;
+  productId: string;
   variantId: string;
   quantity: number;
 }): Promise<Error | undefined> => {
@@ -68,11 +68,11 @@ export const updateItemQuantity = async ({
     return new Error('Missing cartId');
   }
   try {
-    await updateCart(cartId, [
+    await updateToCart(cartId, [
       {
-        id: lineId,
-        merchandiseId: variantId,
-        quantity
+        productId: productId,
+        variantId: variantId,
+        quantity,
       }
     ]);
   } catch (e) {
