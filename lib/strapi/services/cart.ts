@@ -1,6 +1,6 @@
-import { Cart, StrapiCartOperation, StrapiCreateCartOperation, StrapiUpdateCartOperation } from 'lib/strapi/domain/cart';
+import { Cart, StrapiCartOperation, StrapiCreateCartOperation, StrapiRemoveItemToCartOperation, StrapiUpdateCartOperation } from 'lib/strapi/domain/cart';
 import { strapiFetch } from '..';
-import { createCartMutation, updateToCartMutation } from '../mutations/cart';
+import { createCartMutation, removeItemToCartMutation, updateToCartMutation } from '../mutations/cart';
 import { getCartQuery } from '../queries/cart';
 
 export async function getCart(handle: string): Promise<Cart | undefined> {
@@ -49,3 +49,19 @@ export async function updateToCart(
 
   return res.body.data.updateToCart.data.attributes
 };
+
+export async function removeFromCart(cartId: string, productId: string, variantId: string): Promise<Cart | undefined> {
+  const res = await strapiFetch<StrapiRemoveItemToCartOperation>({
+    query: removeItemToCartMutation,
+    variables: {
+      cartId,
+      productId,
+      variantId
+    },
+  });
+
+  console.log('RESPUESTA REMOVE', res);
+  
+
+  return res.body.data.removeItemToCart.data.attributes
+}

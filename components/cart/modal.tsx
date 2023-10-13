@@ -4,13 +4,13 @@ import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
-import type { Cart } from 'lib/strapi/domain/cart';
+import { Cart } from 'lib/strapi/domain/cart';
 import { createUrl } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import CloseCart from './close-cart';
-// import DeleteItemButton from './delete-item-button';
+import DeleteItemButton from './delete-item-button';
 //import EditItemQuantityButton from './edit-item-quantity-button';
 import OpenCart from './open-cart';
 
@@ -104,7 +104,8 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                         >
                           <div className="relative flex w-full flex-row justify-between px-1 py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
-                              {/* <DeleteItemButton item={item} /> */}
+                              {Remove}
+                              <DeleteItemButton item={item} />
                             </div>
                             <Link
                               href={merchandiseUrl}

@@ -48,3 +48,37 @@ mutation updateToCart($cartId: String!, $lines: [CartLineInput!]!) {
 }
 ${ProductFragment}
 `
+
+export const removeItemToCartMutation = `
+mutation removeItemToCart($cartId: String!, $productId: String!, $variantId: String!) {
+  removeItemToCart(cartId: $cartId, productId: $productId, variantId: $variantId) {
+    data {
+      id
+      attributes {
+        handle
+        totalQuantity
+        totalAmount {
+          amount
+          currencyCode
+        }
+        products {
+          handle
+          quantity
+          totalAmount {
+            amount
+            currencyCode
+          }
+          product {
+            data {
+              id
+              attributes {
+                ...product
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`
