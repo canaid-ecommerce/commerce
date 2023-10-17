@@ -1,6 +1,5 @@
 'use server';
 
-//import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { removeFromCart } from 'lib/shopify';
 import { createCart, getCart, updateToCart } from 'lib/strapi/services/cart';
 import { cookies } from 'next/headers';
@@ -40,17 +39,20 @@ export const addItem = async (handle: string, variantId: string): Promise<Error 
   return undefined;
 };
 
-export const removeItem = async (lineId: string): Promise<Error | undefined> => {
+export const removeItem = async (handle: string): Promise<Error | undefined> => {
   const cartId = cookies().get('cartId')?.value;
 
   if (!cartId) {
     return new Error('Missing cartId');
   }
-  try {
-    await removeFromCart(cartId, [lineId]);
-  } catch (e) {
-    return new Error('Error removing item', { cause: e });
-  }
+
+  console.log(cartId);
+  
+  // try {
+  //   await removeFromCart(cartId, [lineId]);
+  // } catch (e) {
+  //   return new Error('Error removing item', { cause: e });
+  // }
 };
 
 export const updateItemQuantity = async ({

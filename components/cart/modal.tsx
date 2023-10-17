@@ -19,7 +19,6 @@ type MerchandiseSearchParams = {
 };
 
 export default function CartModal({ cart }: { cart: Cart | undefined }) {
-
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
@@ -104,7 +103,6 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                         >
                           <div className="relative flex w-full flex-row justify-between px-1 py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
-                              {Remove}
                               <DeleteItemButton item={item} />
                             </div>
                             <Link
@@ -160,8 +158,8 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       <p>Taxes</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
-                        amount={cart.totalAmount.amount.toString()}
-                        currencyCode={cart.totalAmount.currencyCode}
+                        amount={cart.totalAmount ? cart.totalAmount.amount.toString() : ""}
+                        currencyCode={cart.totalAmount ? cart.totalAmount.currencyCode : "COP"}
                       />
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
@@ -172,8 +170,8 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       <p>Total</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
-                        amount={cart.totalAmount.amount.toString()}
-                        currencyCode={cart.totalAmount.currencyCode}
+                        amount={cart.totalAmount ? cart?.totalAmount.amount.toString() : ""}
+                        currencyCode={cart.totalAmount ? cart.totalAmount.currencyCode : "COP"}
                       />
                     </div>
                   </div>
