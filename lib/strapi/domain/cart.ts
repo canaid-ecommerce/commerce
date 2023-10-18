@@ -17,21 +17,6 @@ export type Cart = {
   }[];
 };
 
-export type Remove = {
-  data: {
-    removeItemToCart: {
-      data: {
-        id: number
-        attributes?: Cart;
-      }
-    };
-  };
-  variables: {
-    cartId: string;
-    productId: string;
-    variantId: string;
-  };
-}
 
 export type StrapiCartOperation = {
   data: {

@@ -50,7 +50,7 @@ export async function updateToCart(
   return res.body.data.updateToCart.data.attributes
 };
 
-export async function removeFromCart(cartId: string, productId: string, variantId: string): Promise<Cart | undefined> {
+export async function removeItemToCart({ cartId, productId, variantId }: { cartId: string; productId: string; variantId: string; }): Promise<Cart | undefined> {
   const res = await strapiFetch<StrapiRemoveItemToCartOperation>({
     query: removeItemToCartMutation,
     variables: {
@@ -59,9 +59,6 @@ export async function removeFromCart(cartId: string, productId: string, variantI
       variantId
     },
   });
-
-  console.log('RESPUESTA REMOVE', res);
-  
 
   return res.body.data.removeItemToCart.data.attributes
 }

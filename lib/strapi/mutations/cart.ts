@@ -81,4 +81,5 @@ mutation removeItemToCart($cartId: String!, $productId: String!, $variantId: Str
     }
   }
 }
+${ProductFragment}
 `
