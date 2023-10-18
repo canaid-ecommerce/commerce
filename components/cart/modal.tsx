@@ -103,7 +103,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                         >
                           <div className="relative flex w-full flex-row justify-between px-1 py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
-                              <DeleteItemButton item={cart} />
+                              <DeleteItemButton item={item} />
                             </div>
                             <Link
                               href={merchandiseUrl}

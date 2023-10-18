@@ -5,18 +5,25 @@ export type Cart = {
   handle: string;
   totalQuantity: number;
   totalAmount: Money;
-  products: {
-    handle: string;
-    quantity: number;
-    totalAmount: Money;
-    product: {
-      data: {
-        attributes: Product;
-      }
-    };
-  }[];
+  products: CartProduct[];
 };
 
+export type CartProduct = {
+  handle: string;
+  quantity: number;
+  totalAmount: Money;
+  product: {
+    data: {
+      attributes: Product;
+    }
+  };
+  variant: {
+    id: number;
+    handle: string;
+    availableForSale: boolean;
+    title: string;
+  };
+}
 
 export type StrapiCartOperation = {
   data: {

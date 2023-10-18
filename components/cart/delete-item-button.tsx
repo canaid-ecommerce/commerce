@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation';
 
 import clsx from 'clsx';
 import { removeItem } from 'components/cart/actions';
-import { Cart } from 'lib/strapi/domain/cart';
+import { CartProduct } from 'lib/strapi/domain/cart';
 import { useTransition } from 'react';
 
-export default function DeleteItemButton({ item }: { item: Cart }) {
+export default function DeleteItemButton({ item }: { item: CartProduct }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -16,7 +16,10 @@ export default function DeleteItemButton({ item }: { item: Cart }) {
       aria-label="Remove cart item"
       onClick={() => {
         startTransition(async () => {
-          const error = await removeItem(item.handle);
+          const error = await removeItem(
+            item?.product?.data?.attributes?.handle,
+            item?.variant?.handle
+          );
 
           if (error) {
             alert(error);
