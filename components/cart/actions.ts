@@ -3,9 +3,10 @@
 import { createCart, getCart, removeItemToCart, updateToCart } from 'lib/strapi/services/cart';
 import { cookies } from 'next/headers';
 
-export const addItem = async (handle: string, variantId: string): Promise<Error | undefined> => {
+export const addItem = async (handle: string, variantId: string, type: 'ADD' | 'REMOVE'): Promise<Error | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart = null;
+  
 
   if (cartId) {
     cart = await getCart(cartId);
@@ -23,8 +24,10 @@ export const addItem = async (handle: string, variantId: string): Promise<Error 
     return new Error('Missing variantId');
   }
 
+  const action: 'ADD' | 'REMOVE' = type === 'ADD' ? 'ADD' : 'REMOVE';
+
   const lines = [
-    { productId: handle, variantId: variantId, quantity: 1 },
+    { productId: handle, variantId: variantId, quantity: 1, action },
   ]
 
   if (!cartId) return new Error('Missing cartId');
@@ -38,7 +41,7 @@ export const addItem = async (handle: string, variantId: string): Promise<Error 
   return undefined;
 };
 
-export const removeItem = async (productId: string, variantId: string): Promise<Error | undefined> => {
+export const removeItem = async (productId: string, variantId: string,): Promise<Error | undefined> => {
   const cartId = cookies().get('cartId')?.value;
 
   if (!productId && !variantId) {
@@ -53,32 +56,5 @@ export const removeItem = async (productId: string, variantId: string): Promise<
     await removeItemToCart({ cartId , productId, variantId });
   } catch (e) {
     return new Error('Error removing item', { cause: e });
-  }
-};
-
-export const updateItemQuantity = async ({
-  productId,
-  variantId,
-  quantity
-}: {
-  productId: string;
-  variantId: string;
-  quantity: number;
-}): Promise<Error | undefined> => {
-  const cartId = cookies().get('cartId')?.value;
-
-  if (!cartId) {
-    return new Error('Missing cartId');
-  }
-  try {
-    await updateToCart(cartId, [
-      {
-        productId: productId,
-        variantId: variantId,
-        quantity,
-      }
-    ]);
-  } catch (e) {
-    return new Error('Error updating item quantity', { cause: e });
   }
 };

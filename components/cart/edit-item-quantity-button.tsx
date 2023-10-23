@@ -3,15 +3,15 @@ import { useTransition } from 'react';
 
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { removeItem, updateItemQuantity } from 'components/cart/actions';
+import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
-import type { CartItem } from 'lib/shopify/types';
+import { CartProduct } from 'lib/strapi/domain/cart';
 
 export default function EditItemQuantityButton({
   item,
   type
 }: {
-  item: CartItem;
+  item: CartProduct;
   type: 'plus' | 'minus';
 }) {
   const router = useRouter();
@@ -22,21 +22,36 @@ export default function EditItemQuantityButton({
       aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
       onClick={() => {
         startTransition(async () => {
-          const error =
-            type === 'minus' && item.quantity - 1 === 0
-              ? await removeItem(item.id)
-              : await updateItemQuantity({
-                  lineId: item.id,
-                  variantId: item.merchandise.id,
-                  quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
-                });
 
-          if (error) {
-            alert(error);
-            return;
-          }
+          const typeAction: 'ADD' | 'REMOVE' = type === 'plus' ? 'ADD' : 'REMOVE';
+        
+          const error = await addItem( item.handle, item.variant.handle, typeAction );
+          console.log(error);
+          
+
+          // if (error) {
+          //     alert(error);
+          //     return;
+          // }
 
           router.refresh();
+
+          // const error =
+          //   type === 'minus' && item.quantity - 1 === 0
+          //     ? await removeItem(item.handle, item.variant.handle)
+          //     : await addItem(                
+          //         item.handle,
+          //         item.variant.handle,
+          //          type === 'plus'? 'ADD' : 'REMOVE' 
+          //         //  item.quantity + 1 : item.quantity - 1,
+          //       );
+
+          // if (error) {
+          //   alert(error);
+          //   return;
+          // }
+
+          // router.refresh();
         });
       }}
       disabled={isPending}

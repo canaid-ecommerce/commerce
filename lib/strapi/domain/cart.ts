@@ -75,6 +75,7 @@ export type StrapiUpdateCartOperation = {
       productId: string;
       variantId: string;
       quantity: number;
+      action: string;
     }[];
   };
 };

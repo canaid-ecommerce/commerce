@@ -11,11 +11,12 @@ import { useTransition } from 'react';
 export function AddToCart({
   variants,
   availableForSale,
-  handle
+  handle,
 }: {
   variants: Variants[];
-  availableForSale: boolean;
+  availableForSale: string;
   handle: string;
+  type: string | 'ADD' 
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -44,8 +45,10 @@ export function AddToCart({
         // console.log('handle:', handle);
 
         startTransition(async () => {
-          const error = await addItem(handle, selectedVariantId);
+          const error = await addItem(handle, availableForSale, 'ADD');
 
+          // console.log(error);
+          
           // if (error) {
           //   // Trigger the error boundary in the root error.js
           //   throw new Error(error.toString());

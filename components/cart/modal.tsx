@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import CloseCart from './close-cart';
 import DeleteItemButton from './delete-item-button';
-//import EditItemQuantityButton from './edit-item-quantity-button';
+import EditItemQuantityButton from './edit-item-quantity-button';
 import OpenCart from './open-cart';
 
 type MerchandiseSearchParams = {
@@ -141,7 +141,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                 currencyCode={item.product.data.attributes.maxVariantPrice.currencyCode}
                               />
                               <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
-                                {/* <EditItemQuantityButton item={cart} type="minus" /> */}
+                                <EditItemQuantityButton item={item} type="minus" />
                                 <p className="w-6 text-center">
                                   <span className="w-full text-sm">{item.quantity}</span>
                                 </p>

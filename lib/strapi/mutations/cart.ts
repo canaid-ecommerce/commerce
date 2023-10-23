@@ -15,8 +15,8 @@ mutation createCart($data: CartInput!) {
 }
 `
 export const updateToCartMutation = `
-mutation updateToCart($cartId: String!, $lines: [CartLineInput!]!) {
-  updateToCart(cartId: $cartId, lines: $lines) {
+mutation updateToCart($cartId: String!, $lines: [CartLineInput!]!, $action: action!) {
+  updateToCart(cartId: $cartId, lines: $lines, action: $action) {
     data {
       id
       attributes {
@@ -46,6 +46,7 @@ mutation updateToCart($cartId: String!, $lines: [CartLineInput!]!) {
     }
   }
 }
+
 ${ProductFragment}
 `
 

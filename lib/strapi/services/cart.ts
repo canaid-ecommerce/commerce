@@ -34,12 +34,12 @@ export async function createCart(): Promise<Cart | undefined> {
 
 export async function updateToCart(
   cartId: string,
-  lines: { productId: string; variantId: string, quantity: number }[]): Promise<Cart | undefined> {
+  lines: { productId: string; variantId: string, quantity: number, action: 'ADD' | 'REMOVE' }[]): Promise<Cart | undefined> {
   const res = await strapiFetch<StrapiUpdateCartOperation>({
     query: updateToCartMutation,
     variables: {
       cartId,
-      lines
+      lines, 
     },
   });
 
