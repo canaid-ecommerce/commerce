@@ -27,13 +27,14 @@ export type CartProduct = {
 
 export type StrapiCartOperation = {
   data: {
-    cart?: {
+    cart: {
       data: {
         id: string;
         attributes: Cart;
       };
     };
   };
+  errors?: unknown;
   variables: {
     handle: string;
   };
@@ -54,6 +55,7 @@ export type StrapiCreateCartOperation = {
       };
     };
   };
+  errors?: unknown;
   variables: {
     data?: {};
     slug?: string;
@@ -69,13 +71,14 @@ export type StrapiUpdateCartOperation = {
       }
     };
   };
+  errors?: unknown;
   variables: {
     cartId: string;
+    action: string;
     lines: {
       productId: string;
-      variantId: string;
+      variantId: string | number;
       quantity: number;
-      action: string;
     }[];
   };
 };
@@ -89,6 +92,7 @@ export type StrapiRemoveItemToCartOperation = {
       }
     };
   };
+  errors?: unknown;
   variables: {
     cartId: string;
     productId: string;

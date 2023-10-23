@@ -3,10 +3,10 @@
 import { createCart, getCart, removeItemToCart, updateToCart } from 'lib/strapi/services/cart';
 import { cookies } from 'next/headers';
 
-export const addItem = async (handle: string, variantId: string, type: 'ADD' | 'REMOVE'): Promise<Error | undefined> => {
+export const addItem = async (handle: string, variantId: string | number, type: 'ADD' | 'REMOVE'): Promise<Error | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart = null;
-  
+
 
   if (cartId) {
     cart = await getCart(cartId);
@@ -24,18 +24,19 @@ export const addItem = async (handle: string, variantId: string, type: 'ADD' | '
     return new Error('Missing variantId');
   }
 
-  const action: 'ADD' | 'REMOVE' = type === 'ADD' ? 'ADD' : 'REMOVE';
-
-  const lines = [
-    { productId: handle, variantId: variantId, quantity: 1, action },
-  ]
-
   if (!cartId) return new Error('Missing cartId');
 
+  const action: 'ADD' | 'REMOVE' = type === 'ADD' ? 'ADD' : 'REMOVE';
+  const lines = [
+    { productId: handle, variantId: variantId, quantity: 1 },
+  ];
+
   try {
-    await updateToCart(cartId, lines);
+    await updateToCart(cartId, action, lines);
   } catch (e) {
-    return new Error('Error adding item', { cause: e });
+    // TODO: error refactor
+    console.error('Error updating cart:', e);
+    return new Error('Error updating cart');
   }
 
   return undefined;
@@ -53,7 +54,7 @@ export const removeItem = async (productId: string, variantId: string,): Promise
   }
 
   try {
-    await removeItemToCart({ cartId , productId, variantId });
+    await removeItemToCart({ cartId, productId, variantId });
   } catch (e) {
     return new Error('Error removing item', { cause: e });
   }

@@ -9,11 +9,12 @@ export async function getCart(handle: string): Promise<Cart | undefined> {
     variables: { handle },
   });
 
-  if (!res.body.data.cart?.data.attributes) {
-    return undefined
+  if (res.body.errors) {
+    console.error(`cart error: ${JSON.stringify(res.body.errors)}`);
+    return undefined;
   };
 
-  return res.body.data.cart.data.attributes
+  return res.body.data.cart.data.attributes;
 };
 
 export async function createCart(): Promise<Cart | undefined> {
@@ -25,8 +26,9 @@ export async function createCart(): Promise<Cart | undefined> {
     }
   });
 
-  if (!res.body.data.createCart?.data) {
-    console.error(`createCart error: ${res.body}`);
+  if (res.body.errors) {
+    console.error(`createCart error: ${JSON.stringify(res.body.errors)}`);
+    return undefined;
   };
 
   return res.body.data.createCart?.data?.attributes;
@@ -34,20 +36,23 @@ export async function createCart(): Promise<Cart | undefined> {
 
 export async function updateToCart(
   cartId: string,
-  lines: { productId: string; variantId: string, quantity: number, action: 'ADD' | 'REMOVE' }[]): Promise<Cart | undefined> {
+  action: 'ADD' | 'REMOVE',
+  lines: { productId: string; variantId: string | number, quantity: number }[]): Promise<Cart | undefined> {
   const res = await strapiFetch<StrapiUpdateCartOperation>({
     query: updateToCartMutation,
     variables: {
       cartId,
-      lines, 
+      lines,
+      action
     },
   });
 
-  if (!res.body.data.updateToCart.data.attributes) {
-    return undefined
+  if (res.body.errors) {
+    console.error(`updateToCart error: ${JSON.stringify(res.body.errors)}`);
+    return undefined;
   };
 
-  return res.body.data.updateToCart.data.attributes
+  return res.body.data.updateToCart.data.attributes;
 };
 
 export async function removeItemToCart({ cartId, productId, variantId }: { cartId: string; productId: string; variantId: string; }): Promise<Cart | undefined> {
@@ -59,6 +64,11 @@ export async function removeItemToCart({ cartId, productId, variantId }: { cartI
       variantId
     },
   });
+
+  if (res.body.errors) {
+    console.error(`removeItemToCart error: ${JSON.stringify(res.body.errors)}`);
+    return undefined;
+  };
 
   return res.body.data.removeItemToCart.data.attributes
 }
