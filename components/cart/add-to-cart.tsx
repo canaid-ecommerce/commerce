@@ -2,7 +2,7 @@
 
 import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { addItem } from 'components/cart/actions';
+import { addOrUpdateItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { Variants } from 'lib/strapi/domain/components';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -44,7 +44,7 @@ export function AddToCart({
         if (!availableForSale || !selectedVariantId) return;
         startTransition(async () => {
           try {
-            await addItem(handle, selectedVariantId, 'ADD');
+            await addOrUpdateItem(handle, selectedVariantId, 'ADD');
             router.refresh();
           } catch (e) {
             console.log(e);

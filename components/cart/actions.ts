@@ -3,7 +3,7 @@
 import { createCart, getCart, removeItemToCart, updateToCart } from 'lib/strapi/services/cart';
 import { cookies } from 'next/headers';
 
-export const addItem = async (handle: string, variantId: string | number, type: 'ADD' | 'REMOVE'): Promise<Error | undefined> => {
+export const addOrUpdateItem = async (handle: string, variantId: string | number, type: 'ADD' | 'REMOVE'): Promise<Error | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart = null;
 
