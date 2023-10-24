@@ -46,7 +46,8 @@ export async function updateToCart(
       action
     },
   });
-
+  console.log(res);
+  
   if (res.body.errors) {
     console.error(`updateToCart error: ${JSON.stringify(res.body.errors)}`);
     return undefined;

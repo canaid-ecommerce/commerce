@@ -3,7 +3,7 @@
 import { createCart, getCart, removeItemToCart, updateToCart } from 'lib/strapi/services/cart';
 import { cookies } from 'next/headers';
 
-export const addOrUpdateItem = async (handle: string, variantId: string | number, type: 'ADD' | 'REMOVE'): Promise<Error | undefined> => {
+export const addOrUpdateItem = async (handle: string, variantId: string | number, action: 'ADD' | 'REMOVE'): Promise<Error | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart = null;
 
@@ -26,13 +26,12 @@ export const addOrUpdateItem = async (handle: string, variantId: string | number
 
   if (!cartId) return new Error('Missing cartId');
 
-  const action: 'ADD' | 'REMOVE' = type === 'ADD' ? 'ADD' : 'REMOVE';
   const lines = [
     { productId: handle, variantId: variantId, quantity: 1 },
   ];
 
   try {
-    await updateToCart(cartId, action, lines);
+    await updateToCart(cartId, action, lines);    
   } catch (e) {
     // TODO: error refactor
     console.error('Error updating cart:', e);
