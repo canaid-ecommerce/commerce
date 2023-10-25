@@ -82,7 +82,6 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
                   <ul className="flex-grow overflow-auto py-4">
                     {cart.products.map((item, i) => {
-
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
                       // item.merchandise.selectedOptions.forEach(({ name, value }) => {
@@ -137,8 +136,8 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                             <div className="flex h-16 flex-col justify-between">
                               <Price
                                 className="flex justify-end space-y-2 text-right text-sm"
-                                amount={item.product.data.attributes.maxVariantPrice.amount.toString()}
-                                currencyCode={item.product.data.attributes.maxVariantPrice.currencyCode}
+                                amount={item.totalAmount.amount.toString()}
+                                currencyCode={item.totalAmount.currencyCode}
                               />
                               <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
                                 <EditItemQuantityButton item={item} type="minus" />

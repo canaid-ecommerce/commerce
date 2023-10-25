@@ -16,17 +16,13 @@ export default function DeleteItemButton({ item }: { item: CartProduct }) {
       aria-label="Remove cart item"
       onClick={() => {
         startTransition(async () => {
-          const error = await removeItem(
-            item?.product?.data?.attributes?.handle,
-            item?.variant?.handle
-          );
-
-          if (error) {
-            alert(error);
-            return;
+          try {
+            await removeItem(item?.product?.data?.attributes?.handle, item?.variant?.handle);
+            router.refresh();
+          } catch (e) {
+            // TODO: error refactor
+            console.log(e);
           }
-
-          router.refresh();
         });
       }}
       disabled={isPending}

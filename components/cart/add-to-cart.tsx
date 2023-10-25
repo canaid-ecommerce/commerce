@@ -14,9 +14,8 @@ export function AddToCart({
   handle,
 }: {
   variants: Variants[];
-  availableForSale: string;
+  availableForSale: boolean;
   handle: string;
-  type: string | 'ADD'
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -47,6 +46,7 @@ export function AddToCart({
             await addOrUpdateItem(handle, selectedVariantId, 'ADD');
             router.refresh();
           } catch (e) {
+            // TODO: error refactor
             console.log(e);
           }
         });

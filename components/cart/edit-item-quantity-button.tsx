@@ -25,10 +25,10 @@ export default function EditItemQuantityButton({
           // Safeguard in case someone messes with `disabled` in devtools.
           try {
             const typeAction: 'ADD' | 'REMOVE' = type === 'plus' ? 'ADD' : 'REMOVE';
-            await addOrUpdateItem(item.handle, item.variant.handle, typeAction);
-
+            await addOrUpdateItem(item.product.data.attributes.handle, item.variant.handle, typeAction);
             router.refresh();
           } catch (e) {
+            // TODO: error refactor
             console.log(e);
           }
         });

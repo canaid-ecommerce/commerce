@@ -3,20 +3,6 @@ import { strapiFetch } from '..';
 import { createCartMutation, removeItemToCartMutation, updateToCartMutation } from '../mutations/cart';
 import { getCartQuery } from '../queries/cart';
 
-export async function getCart(handle: string): Promise<Cart | undefined> {
-  const res = await strapiFetch<StrapiCartOperation>({
-    query: getCartQuery,
-    variables: { handle },
-  });
-
-  if (res.body.errors) {
-    console.error(`cart error: ${JSON.stringify(res.body.errors)}`);
-    return undefined;
-  };
-
-  return res.body.data.cart.data.attributes;
-};
-
 export async function createCart(): Promise<Cart | undefined> {
   const res = await strapiFetch<StrapiCreateCartOperation>({
     query: createCartMutation,
@@ -26,12 +12,30 @@ export async function createCart(): Promise<Cart | undefined> {
     }
   });
 
-  if (res.body.errors) {
-    console.error(`createCart error: ${JSON.stringify(res.body.errors)}`);
+  if (!res.body.data.createCart.data || res.body.errors) {
+    if (res.body.errors) {
+      console.error(`createCart error: ${JSON.stringify(res.body.errors)}`);
+    }
     return undefined;
   };
 
   return res.body.data.createCart?.data?.attributes;
+};
+
+export async function getCart(handle: string): Promise<Cart | undefined> {
+  const res = await strapiFetch<StrapiCartOperation>({
+    query: getCartQuery,
+    variables: { handle },
+  });
+
+  if (!res.body.data.cart.data || res.body.errors) {
+    if (res.body.errors) {
+      console.error(`cart error: ${JSON.stringify(res.body.errors)}`);
+    }
+    return undefined;
+  };
+
+  return res.body.data.cart.data.attributes;
 };
 
 export async function updateToCart(
@@ -46,10 +50,11 @@ export async function updateToCart(
       action
     },
   });
-  console.log(res);
-  
-  if (res.body.errors) {
-    console.error(`updateToCart error: ${JSON.stringify(res.body.errors)}`);
+
+  if (!res.body.data.updateToCart.data || res.body.errors) {
+    if (res.body.errors) {
+      console.error(`updateToCart error: ${JSON.stringify(res.body.errors)}`);
+    }
     return undefined;
   };
 
@@ -66,8 +71,10 @@ export async function removeItemToCart({ cartId, productId, variantId }: { cartI
     },
   });
 
-  if (res.body.errors) {
-    console.error(`removeItemToCart error: ${JSON.stringify(res.body.errors)}`);
+  if (!res.body.data.removeItemToCart.data || res.body.errors) {
+    if (res.body.errors) {
+      console.error(`removeItemToCart error: ${JSON.stringify(res.body.errors)}`);
+    }
     return undefined;
   };
 
