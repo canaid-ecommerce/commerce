@@ -157,8 +157,8 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       <p>Taxes</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
-                        amount={cart.totalAmount ? cart.totalAmount.amount.toString() : ""}
-                        currencyCode={cart.totalAmount ? cart.totalAmount.currencyCode : "COP"}
+                        amount={cart?.totalAmount?.amount ? cart.totalAmount.amount.toString() : ""}
+                        currencyCode={cart?.totalAmount?.currencyCode ? cart.totalAmount.currencyCode : "COP"}
                       />
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
@@ -169,8 +169,8 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       <p>Total</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
-                        amount={cart.totalAmount ? cart?.totalAmount.amount.toString() : ""}
-                        currencyCode={cart.totalAmount ? cart.totalAmount.currencyCode : "COP"}
+                        amount={cart?.totalAmount?.amount ? cart?.totalAmount.amount.toString() : ""}
+                        currencyCode={cart?.totalAmount?.currencyCode ? cart.totalAmount.currencyCode : "COP"}
                       />
                     </div>
                   </div>
