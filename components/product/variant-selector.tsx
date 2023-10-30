@@ -62,13 +62,13 @@ export function VariantSelector({
       params: new URLSearchParams()
     };
 
-    variant.selectedOptions.forEach((selectedOption) => {
-      const name = selectedOption.name.toLowerCase();
-      const value = selectedOption.value;
+    // variant.selectedOptions.forEach((selectedOption) => {
+    //   const name = selectedOption.name.toLowerCase();
+    //   const value = selectedOption.value;
 
-      optimized[name] = value;
-      optimized.params.set(name, String(value));
-    });
+    //   optimized[name] = value;
+    //   optimized.params.set(name, String(value));
+    // });
 
     return optimized;
   });
@@ -104,49 +104,50 @@ export function VariantSelector({
       <dd className="flex flex-wrap gap-3">
         {option.values.map((value) => {
           // Base option params on selected variant params.
-          const optionParams = new URLSearchParams(selectedVariantParams);
-          // Update the params using the current option to reflect how the url would change.
-          optionParams.set(option.name.toLowerCase(), String(value));
+          // const optionParams = new URLSearchParams(selectedVariantParams);
+          // // Update the params using the current option to reflect how the url would change.
+          // optionParams.set(option.name.toLowerCase(), String(value));
 
-          const optionUrl = createUrl(pathname, optionParams);
+          // const optionUrl = createUrl(pathname, optionParams);
 
-          // The option is active if it in the url params.
-          const isActive = selectedVariantParams.get(option.name.toLowerCase()) === value;
+          // // The option is active if it in the url params.
+          // const isActive = selectedVariantParams.get(option.name.toLowerCase()) === value;
 
-          // The option is available for sale if it fully matches the variant in the option's url params.
-          // It's super important to note that this is the options params, *not* the selected variant's params.
-          // This is the "magic" that will cross check possible future variant combinations and preemptively
-          // disable combinations that are not possible.
-          const isAvailableForSale = optimizedVariants.find((a) =>
-            Array.from(optionParams.entries()).every(([key, value]) => a[key] === value)
-          )?.availableForSale;
+          // // The option is available for sale if it fully matches the variant in the option's url params.
+          // // It's super important to note that this is the options params, *not* the selected variant's params.
+          // // This is the "magic" that will cross check possible future variant combinations and preemptively
+          // // disable combinations that are not possible.
+          // const isAvailableForSale = optimizedVariants.find((a) =>
+          //   Array.from(optionParams.entries()).every(([key, value]) => a[key] === value)
+          // )?.availableForSale;
 
-          const DynamicTag = isAvailableForSale ? Link : 'p';
-          const dynamicProps = {
-            ...(isAvailableForSale && { scroll: false })
-          };
+          // const DynamicTag = isAvailableForSale ? Link : 'p';
+          // const dynamicProps = {
+          //   ...(isAvailableForSale && { scroll: false })
+          // };
 
-          return (
-            <DynamicTag
-              key={value}
-              aria-disabled={!isAvailableForSale}
-              href={optionUrl}
-              title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
-              className={clsx(
-                'flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900',
-                {
-                  'cursor-default ring-2 ring-blue-600': isActive,
-                  'ring-1 ring-transparent transition duration-300 ease-in-out hover:scale-110 hover:ring-blue-600 ':
-                    !isActive && isAvailableForSale,
-                  'relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 before:dark:bg-neutral-700':
-                    !isAvailableForSale
-                }
-              )}
-              {...dynamicProps}
-            >
-              {value}
-            </DynamicTag>
-          );
+          return null;
+          // return (
+          // <DynamicTag
+          //   key={value}
+          //   aria-disabled={!isAvailableForSale}
+          //   href={optionUrl}
+          //   title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
+          //   className={clsx(
+          //     'flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900',
+          //     {
+          //       'cursor-default ring-2 ring-blue-600': isActive,
+          //       'ring-1 ring-transparent transition duration-300 ease-in-out hover:scale-110 hover:ring-blue-600 ':
+          //         !isActive && isAvailableForSale,
+          //       'relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 before:dark:bg-neutral-700':
+          //         !isAvailableForSale
+          //     }
+          //   )}
+          //   {...dynamicProps}
+          // >
+          //   {value}
+          // </DynamicTag>
+          // );
         })}
       </dd>
     </dl>
