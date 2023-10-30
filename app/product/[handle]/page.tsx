@@ -14,7 +14,7 @@ import { ProductDescription } from 'components/product/product-description';
 import { Images } from 'lib/strapi/domain/components';
 import { getProduct } from 'lib/strapi/services/product';
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 export async function generateMetadata({
   params
