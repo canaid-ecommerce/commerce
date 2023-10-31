@@ -13,3 +13,17 @@ query Product($handle: String!) {
 }
 ${ProductFragment}
 `;
+
+export const getProductsQuery = `
+query Products {
+  products {
+    data {
+      id
+      attributes {
+        ...product
+      }
+    }
+  }
+}
+${ProductFragment}
+`;

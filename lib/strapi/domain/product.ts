@@ -28,3 +28,17 @@ export type StrapiProductOperation = {
     handle: string;
   };
 };
+
+export type StrapiProductsOperation = {
+  data: {
+    products?: {
+      data: {
+        id: number,
+        attributes: Product,
+      };
+    };
+  };
+  variables: {
+    data: {}
+  };
+};
