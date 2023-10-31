@@ -4,6 +4,9 @@ import { Product } from 'lib/strapi/domain/product';
 import Link from 'next/link';
 
 export default function ProductGridItems({ products }: { products: Product[] }) {
+  console.log("products", products);
+  
+  return null;
   return (
     <>
       {products.map((product) => (

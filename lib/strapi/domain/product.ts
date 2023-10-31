@@ -31,13 +31,14 @@ export type StrapiProductOperation = {
 
 export type StrapiProductsOperation = {
   data: {
-    products?: {
+    products: {
       data: {
         id: number,
         attributes: Product,
-      };
+      }[];
     };
   };
+  errors?: unknown;
   variables: {
     data: {}
   };

@@ -26,14 +26,13 @@ export async function getProducts(): Promise<Product[]> {
     variables: {
       data: {}
     }
-  })
-  console.log('GETPRODUCTS', res);
+  });
 
-  const productData = res.body.data.products?.data?.attributes;
-
-  if (Array.isArray(productData)) {
-    return productData as Product[];
+  if (!res.body.data.products.data || res.body.errors) {
+    if (res.body.errors) {
+      console.error(`getProducts error: ${JSON.stringify(res.body.errors)}`);
+    }
   };
-
-  return []
+  
+  return res.body.data.products.data;
 }
