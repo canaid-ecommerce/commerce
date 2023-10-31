@@ -10,9 +10,12 @@ export async function getProduct(handle: string): Promise<Product> {
     }
   });
 
-  if (!res.body.data.product?.data?.attributes) {
-    console.error(`product ${handle} not found or unpublished`);
-  }
+  
+  if (!res.body.data.product.data || res.body.errors) {
+    if (res.body.errors) {
+      console.error(`getProduct error: ${JSON.stringify(res.body.errors)}`);
+    }
+  };
 
   return {
     ...(res.body.data.product?.data?.attributes as Product),
