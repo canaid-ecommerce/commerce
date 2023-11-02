@@ -28,3 +28,30 @@ query getCollectionProducts($handle: String!) {
 }
 ${ProductFragment}
 `;
+
+export const getCollectionsQuery = `
+query getCollections {
+  collections {
+    data {
+      id
+      attributes {
+        title
+        description
+        handle
+        SEO {
+          ...seo
+        }
+        products {
+          data {
+            id
+            attributes {
+              ...product
+            }
+          }
+        }
+      }
+    }
+  }
+}
+${ProductFragment}
+`

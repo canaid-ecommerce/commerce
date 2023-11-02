@@ -22,11 +22,10 @@ export async function generateMetadata({
   params: { handle: string };
 }): Promise<Metadata> {
   const product = await getProduct(params.handle);
-  // console.log('PRODUCTO', product);
 
   if (!product) return notFound();
 
-  const { url, width, height, altText: alt } = product?.images[0] || {};
+  const { url, width, height, altText: alt } = (product?.images?.[0] || {});
   // const hide = product?.tags.name.some(tag => tag === HIDDEN_PRODUCT_TAG );
 
   return {
@@ -63,9 +62,9 @@ export default async function ProductPage({ params }: { params: { handle: string
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product?.title,
-    description: product?.description,
-    image: product?.images[0]?.url,
+    name: product?.title || " ",
+    description: product?.description || "",
+    image: product?.images[0]?.url || "",
     offers: {
       '@type': 'AggregateOffer',
       availability: product.availableForSale

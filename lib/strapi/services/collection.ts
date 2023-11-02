@@ -1,6 +1,6 @@
 import { strapiFetch } from '..';
-import { Collection, StrapiCollectionOperation } from '../domain/collection';
-import { getCollectionQuery } from '../queries/collection';
+import { Collection, StrapiCollectionOperation, StrapiCollectiosnOperation } from '../domain/collection';
+import { getCollectionQuery, getCollectionsQuery } from '../queries/collection';
 
 export async function getCollectionProducts(handle: string): Promise<Collection | undefined> {
   const res = await strapiFetch<StrapiCollectionOperation>({
@@ -15,4 +15,23 @@ export async function getCollectionProducts(handle: string): Promise<Collection 
   }
 
   return res.body?.data?.collection?.data?.attributes;
+}
+
+export async function getCollectionsProducts(): Promise<Collection[]> {
+  const res = await strapiFetch<StrapiCollectiosnOperation>({
+    query: getCollectionsQuery,
+    variables: {
+      data: {}
+    }
+  });
+  console.log('GET COLLECTIONS PRODUCTS', res);
+
+
+  if (!res.body?.data?.collections?.data || res.body.errors) {
+    if (res.body.errors) {
+      console.error(`getCollectionsProducts error: ${JSON.stringify(res.body.errors)}`);
+    }
+  };
+
+  return res.body?.data?.collections?.data;
 }

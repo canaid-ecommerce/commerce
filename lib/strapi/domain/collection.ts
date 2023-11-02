@@ -29,3 +29,18 @@ export type StrapiCollectionOperation = {
     handle: string;
   };
 };
+
+export type StrapiCollectiosnOperation = {
+  data: {
+    collections?: {
+      data: {
+        id: number;
+        attributes: Collection;
+      }[];
+    };
+  };
+  errors?: unknown;
+  variables: {
+    data: {};
+  };
+};
