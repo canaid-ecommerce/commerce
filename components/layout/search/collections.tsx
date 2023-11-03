@@ -1,11 +1,13 @@
 import clsx from 'clsx';
 import { Suspense } from 'react';
 
-import { getCollections } from 'lib/shopify';
+import { getCollectionsProducts } from 'lib/strapi/services/collection';
 import FilterList from './filter';
 
 async function CollectionList() {
-  const collections = await getCollections();
+  const collections = await getCollectionsProducts();
+  // console.log(getCollectionsProducts);
+
   return <FilterList list={collections} title="Collections" />;
 }
 
