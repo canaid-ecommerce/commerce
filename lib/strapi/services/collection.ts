@@ -24,8 +24,6 @@ export async function getCollectionsProducts(): Promise<Collection[]> {
       data: {}
     }
   });
-  console.log('GET COLLECTIONS PRODUCTS', res);
-
 
   if (!res.body?.data?.collections?.data || res.body.errors) {
     if (res.body.errors) {

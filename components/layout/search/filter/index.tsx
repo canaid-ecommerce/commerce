@@ -1,8 +1,9 @@
 import { SortFilterItem } from 'lib/constants';
 import FilterItemDropdown from './dropdown';
 import { FilterItem } from './item';
+import { Collection } from 'lib/strapi/domain/collection';
 
-export type ListItem = SortFilterItem | PathFilterItem;
+export type ListItem = SortFilterItem | PathFilterItem | Collection;
 export type PathFilterItem = { title: string; path: string };
 
 function FilterItemList({ list }: { list: ListItem[] }) {

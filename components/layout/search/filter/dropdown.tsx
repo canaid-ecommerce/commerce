@@ -8,6 +8,8 @@ import type { ListItem } from '.';
 import { FilterItem } from './item';
 
 export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
+  console.log(list);
+  
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [active, setActive] = useState('');
