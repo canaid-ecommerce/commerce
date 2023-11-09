@@ -4,12 +4,14 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { Collection } from 'lib/strapi/domain/collection';
 import type { ListItem } from '.';
 import { FilterItem } from './item';
 
-export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
-  console.log(list);
-  
+
+export default function FilterItemDropdown({ list }: { list: Collection[] }) {
+  //console.log('Collection', list);
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [active, setActive] = useState('');

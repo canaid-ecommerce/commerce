@@ -1,9 +1,10 @@
-import { SortFilterItem } from 'lib/constants';
+//import { SortFilterItem } from 'lib/constants';
+import { Collection } from 'lib/strapi/domain/collection';
 import FilterItemDropdown from './dropdown';
 import { FilterItem } from './item';
-import { Collection } from 'lib/strapi/domain/collection';
+import ListCollection from './list-collection';
 
-export type ListItem = SortFilterItem | PathFilterItem | Collection;
+export type ListItem = Collection;
 export type PathFilterItem = { title: string; path: string };
 
 function FilterItemList({ list }: { list: ListItem[] }) {
@@ -16,7 +17,7 @@ function FilterItemList({ list }: { list: ListItem[] }) {
   );
 }
 
-export default function FilterList({ list, title }: { list: ListItem[]; title?: string }) {
+export default function FilterList({ list, title }: { list: Collection[]; title?: string }) {
   return (
     <>
       <nav>
@@ -27,6 +28,7 @@ export default function FilterList({ list, title }: { list: ListItem[]; title?: 
         <ul className="md:hidden">
           <FilterItemDropdown list={list} />
         </ul>
+        <ListCollection collections={list} />
       </nav>
     </>
   );
