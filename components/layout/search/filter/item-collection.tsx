@@ -7,20 +7,14 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 export default function ItemCollection({ collection }: { collection: Collection }) {
-    //console.log("collection", collection);
-
     const pathname = usePathname();
-    const searchParams = useSearchParams();
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.delete('q');
     const active = pathname === collection.handle;
-
     const DynamicTag = active ? 'p' : Link;
 
     return (
-        <nav>
+        <li className="mt-2 flex text-black dark:text-white" key={collection.title}>
             <DynamicTag
-                href={createUrl(collection.handle, newParams)}
+                href={createUrl(`search/${collection.handle}`, new URLSearchParams())}
                 className={clsx(
                     'w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100',
                     {
@@ -30,6 +24,6 @@ export default function ItemCollection({ collection }: { collection: Collection 
             >
                 {collection.title}
             </DynamicTag>
-        </nav>
+        </li>
     );
 };
