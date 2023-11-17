@@ -14,7 +14,7 @@ export default function ItemCollection({ collection }: { collection: Collection 
     return (
         <li className="mt-2 flex text-black dark:text-white" key={collection.title}>
             <DynamicTag
-                href={createUrl(collection.handle, new URLSearchParams())}
+                href={`/search/${collection.handle}`}
                 className={clsx(
                     'w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100',
                     {
