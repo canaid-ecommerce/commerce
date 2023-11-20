@@ -17,7 +17,7 @@ function FilterItemList({ list }: { list: ListItem[] }) {
     <>
       { list?.[0].attributes && <ItemCollection key={1} collection={all} /> }
       {list.map((item: ListItem, i) => {
-        return item?.attributes ? <ItemCollection key={i} collection={item?.attributes} /> : <FilterItem key={i} item={item} />
+        return 'attributes' in item ? <ItemCollection key={i} collection={item?.attributes} /> : <FilterItem key={i} item={item} />
       })}
     </>
   );
