@@ -7,9 +7,15 @@ import ItemCollection from './item-collection';
 export type ListItem = SortFilterItem | PathFilterItem | Collection;
 export type PathFilterItem = { title: string; path: string };
 
+const all: Collection = {
+  title: 'All',
+  handle: ''
+}
+
 function FilterItemList({ list }: { list: ListItem[] }) {
   return (
     <>
+      { list?.[0].attributes && <ItemCollection key={1} collection={all} /> }
       {list.map((item: ListItem, i) => {
         return item?.attributes ? <ItemCollection key={i} collection={item?.attributes} /> : <FilterItem key={i} item={item} />
       })}
