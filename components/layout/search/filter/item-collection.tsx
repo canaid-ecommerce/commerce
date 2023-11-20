@@ -8,8 +8,12 @@ import { usePathname, useSearchParams } from 'next/navigation';
 
 export default function ItemCollection({ collection }: { collection: Collection }) {
     const pathname = usePathname();
-    const active = pathname === `/search/${collection.handle}`;
+    let active = pathname === `/search/${collection.handle}`;
     const DynamicTag = active ? 'p' : Link;
+
+    if (collection?.title.toLowerCase() == 'all' && pathname == '/search') {
+        active = true;
+    }
 
     return (
         <li className="mt-2 flex text-black dark:text-white" key={collection.title}>
