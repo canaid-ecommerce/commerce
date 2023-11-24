@@ -1,7 +1,7 @@
 export type SortFilterItem = {
   title: string;
   slug: string | null;
-  sortKey: 'RELEVANCE' | 'BEST_SELLING' | 'CREATED_AT' | 'PRICE';
+  sortKey: 'RELEVANCE' | 'BEST_SELLING' | 'createdAt' | 'maxVariantPrice.amount';
   reverse: boolean;
 };
 
@@ -15,9 +15,9 @@ export const defaultSort: SortFilterItem = {
 export const sorting: SortFilterItem[] = [
   defaultSort,
   // { title: 'Trending', slug: 'trending-desc', sortKey: 'BEST_SELLING', reverse: false }, // asc
-  { title: 'Latest arrivals', slug: 'latest-desc', sortKey: 'CREATED_AT', reverse: true },
-  { title: 'Price: Low to high', slug: 'price-asc', sortKey: 'PRICE', reverse: false }, // asc
-  { title: 'Price: High to low', slug: 'price-desc', sortKey: 'PRICE', reverse: true }
+  { title: 'Latest arrivals', slug: 'createdAt:desc', sortKey: 'createdAt', reverse: true },
+  { title: 'Price: Low to high', slug: 'maxVariantPrice.amount:asc', sortKey: 'maxVariantPrice.amount', reverse: false }, // asc
+  { title: 'Price: High to low', slug: 'maxVariantPrice.amount:desc', sortKey: 'maxVariantPrice.amount', reverse: true }
 ];
 
 export const TAGS = {

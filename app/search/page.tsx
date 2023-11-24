@@ -1,6 +1,6 @@
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
-//import { defaultSort, sorting } from 'lib/constants';
+import { defaultSort, sorting } from 'lib/constants';
 import { getProducts } from 'lib/strapi/services/product';
 
 // export const runtime = 'edge';
@@ -15,12 +15,13 @@ export default async function SearchPage({
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  // const { sort, q: searchValue } = searchParams as { [key: string]: string };
-  const { q: searchValue } = searchParams || {}
-  // const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
+  const { sort, q: searchValue } = searchParams as { [key: string]: string };
+  const searchValueString = Array.isArray(searchValue) ? (searchValue as string[]).join(' ') : searchValue;
+  const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
-  // const products = await getProducts({ sortKey, reverse, query: searchValue });
-  const products = await getProducts();
+  console.log(sort)
+
+  const products = await getProducts({ sortKey, reverse, searchValue: searchValueString });
 
   const resultsText = products?.length > 1 ? 'results' : 'result';
 

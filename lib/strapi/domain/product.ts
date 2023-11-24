@@ -41,6 +41,8 @@ export type StrapiProductsOperation = {
   };
   errors?: unknown;
   variables: {
-    data: {}
+    searchValue?: string,
+    reverse?: boolean,
+    sortKey?: string[]
   };
 };

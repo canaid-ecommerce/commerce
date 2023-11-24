@@ -15,11 +15,20 @@ ${ProductFragment}
 `;
 
 export const getProductsQuery = `
-query Products {
-  products {
+query Products($searchValue: String, $sort: [String]) {
+  products(
+    filters: {
+      or: [
+        { title: { containsi: $searchValue } }
+        { description: { containsi: $searchValue } }
+      ]
+    }
+    sort: $sort
+  ) {
     data {
       id
       attributes {
+        createdAt
         ...product
       }
     }

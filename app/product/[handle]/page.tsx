@@ -29,8 +29,8 @@ export async function generateMetadata({
   // const hide = product?.tags.name.some(tag => tag === HIDDEN_PRODUCT_TAG );
 
   return {
-    title: product?.SEO.title || product?.title,
-    description: product?.SEO.description || product?.description,
+    title: product?.SEO?.title || product?.title,
+    description: product?.SEO?.description || product?.description,
     // TODO - [descripción del ajuste]
     // robots: {
     //   index: hide,

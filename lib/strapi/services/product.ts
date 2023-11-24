@@ -10,7 +10,6 @@ export async function getProduct(handle: string): Promise<Product> {
     }
   });
 
-  
   if (!res.body.data.product.data || res.body.errors) {
     if (res.body.errors) {
       console.error(`getProduct error: ${JSON.stringify(res.body.errors)}`);
@@ -23,11 +22,16 @@ export async function getProduct(handle: string): Promise<Product> {
   };
 }
 
-export async function getProducts(): Promise<Product[]> {
+export async function getProducts({ searchValue, sortKey, reverse }: {
+  searchValue?: string; reverse?: boolean;
+  sortKey?: string[];
+}): Promise<Product[]> {
   const res = await strapiFetch<StrapiProductsOperation>({
     query: getProductsQuery,
     variables: {
-      data: {}
+      searchValue,
+      sortKey,
+      reverse
     }
   });
 
@@ -36,6 +40,6 @@ export async function getProducts(): Promise<Product[]> {
       console.error(`getProducts error: ${JSON.stringify(res.body.errors)}`);
     }
   };
-  
+
   return res.body.data.products.data;
 }
