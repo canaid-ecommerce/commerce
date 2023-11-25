@@ -23,13 +23,14 @@ export async function getProduct(handle: string): Promise<Product> {
 }
 
 export async function getProducts({ searchValue, sortKey }: {
-  searchValue?: string; sortKey?: string;
+  searchValue?: string; 
+  sortKey?: string;
 }): Promise<Product[]> {
   const res = await strapiFetch<StrapiProductsOperation>({
     query: getProductsQuery,
     variables: {
       searchValue,
-      sortKey
+      sort:[sortKey]
     }
   });
 

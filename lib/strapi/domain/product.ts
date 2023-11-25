@@ -42,6 +42,6 @@ export type StrapiProductsOperation = {
   errors?: unknown;
   variables: {
     searchValue?: string,
-    sortKey?: string
+    sort?: string
   };
 };
