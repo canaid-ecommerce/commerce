@@ -2,6 +2,7 @@ import { ImageFragment, MoneyFragment, SeoFragment, VariantsFragment } from "./c
 
 export const ProductFragment = `
 fragment product on Product{
+  createdAt
   title
   description
   handle
