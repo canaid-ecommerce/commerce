@@ -32,7 +32,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
         ('path' in listItem && pathname === listItem.path) ||
         ('slug' in listItem && searchParams.get('sort') === listItem.slug)
       ) {
-        setActive(listItem.title);
+        if (listItem.title) setActive(listItem.title);
       }
     });
   }, [pathname, list, searchParams]);

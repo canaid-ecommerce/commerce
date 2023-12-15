@@ -6,7 +6,7 @@ import { createUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import type { ListItem, PathFilterItem } from '.';
-import { Collection } from 'lib/strapi/domain/collection';
+import { Collection, StrapiCollection } from 'lib/strapi/domain/collection';
 
 function PathFilterItem({ item }: { item: PathFilterItem }) {
   const pathname = usePathname();
@@ -34,7 +34,7 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
   );
 }
 
-function SortFilterItem({ item }: { item: SortFilterItemType | Collection }) {
+function SortFilterItem({ item }: { item: SortFilterItemType | Collection | StrapiCollection }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const active = searchParams.get('sort') === item.slug;

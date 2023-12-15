@@ -1,10 +1,10 @@
 import { SortFilterItem } from 'lib/constants';
-import { Collection } from 'lib/strapi/domain/collection';
+import { Collection, StrapiCollection } from 'lib/strapi/domain/collection';
 import FilterItemDropdown from './dropdown';
 import { FilterItem } from './item';
 import ItemCollection from './item-collection';
 
-export type ListItem = SortFilterItem | PathFilterItem | Collection;
+export type ListItem = SortFilterItem | PathFilterItem | Collection | StrapiCollection;
 export type PathFilterItem = { title: string; path: string };
 
 const all: Collection = {
@@ -32,7 +32,8 @@ export default function FilterList({ list, title }: { list: ListItem[]; title?: 
           <FilterItemList list={list} />
         </ul>
         <ul className="md:hidden">
-          <FilterItemDropdown list={list} />
+          TODO: Add dropdown movile
+          {/* <FilterItemDropdown list={list} /> */}
         </ul>
       </nav>
     </>

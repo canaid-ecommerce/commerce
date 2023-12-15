@@ -19,6 +19,8 @@ export type Collection = {
 
 export type StrapiCollection = {
   id: number;
+  slug?: string;
+  title?: string;
   attributes: Collection;
 };
 
