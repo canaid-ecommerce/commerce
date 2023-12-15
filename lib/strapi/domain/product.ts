@@ -8,7 +8,7 @@ export type Product = {
   availableForSale: boolean;
   descriptionHtml: string;
   maxVariantPrice: Money;
-  minVariantPrice: null;
+  minVariantPrice: Money;
   featuredImage: FeaturedImage;
   SEO: SEO;
   images: Images[];
@@ -23,7 +23,7 @@ export type StrapiProduct = {
 export type StrapiProductOperation = {
   data: {
     product: {
-      data: StrapiProduct[];
+      data: StrapiProduct;
     };
   };
   errors?: unknown;

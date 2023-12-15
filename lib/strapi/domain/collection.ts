@@ -4,9 +4,10 @@ import { Product } from './product';
 export type Collection = {
   title: string;
   description?: string;
+  slug?: string;
   handle?: string;
-  SEO: SEO;
-  products: {
+  SEO?: SEO;
+  products?: {
     data: {
       id: number;
       attributes: Product;
@@ -16,7 +17,7 @@ export type Collection = {
   updatedAt?: string;
 };
 
-export type CollectionStrapi = {
+export type StrapiCollection = {
   id: number;
   attributes: Collection;
 };
@@ -24,10 +25,7 @@ export type CollectionStrapi = {
 export type StrapiCollectionOperation = {
   data: {
     collection: {
-      data: {
-        id: number;
-        attributes: Collection;
-      }[];
+      data: StrapiCollection;
     };
   };
   variables: {
@@ -37,15 +35,10 @@ export type StrapiCollectionOperation = {
 
 export type StrapiCollectiosnOperation = {
   data: {
-    collections?: {
-      data: {
-        id: number;
-        attributes: Collection;
-      }[];
+    collections: {
+      data: StrapiCollection[];
     };
   };
   errors?: unknown;
-  variables: {
-    data: {};
-  };
+  variables: {};
 };

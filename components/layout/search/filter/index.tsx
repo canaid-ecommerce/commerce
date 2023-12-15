@@ -15,9 +15,9 @@ const all: Collection = {
 function FilterItemList({ list }: { list: ListItem[] }) {
   return (
     <>
-      { list?.[0].attributes && <ItemCollection key={1} collection={all} /> }
+      { Array.isArray(list) && <ItemCollection collection={all} /> }
       {list.map((item: ListItem, i) => {
-        return 'attributes' in item ? <ItemCollection key={i} collection={item?.attributes} /> : <FilterItem key={i} item={item} />
+        return 'attributes' in item ? <ItemCollection collection={item.attributes as Collection} /> : <FilterItem item={item} />
       })}
     </>
   );

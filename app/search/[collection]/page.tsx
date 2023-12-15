@@ -19,9 +19,9 @@ export async function generateMetadata({
   if (!collection) return notFound();
 
   return {
-    title: collection.SEO.title || collection.title,
+    title: collection?.SEO?.title || collection.title,
     description:
-      collection.SEO.description || collection.description || `${collection.title} products`
+      collection?.SEO?.description || collection.description || `${collection.title} products`
   };
 }
 
@@ -35,7 +35,7 @@ export default async function CategoryPage({
   // const { sort } = searchParams as { [key: string]: string };
   // const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
   const productData = await getCollectionProducts(params.collection);
-  const products = productData.products.data as StrapiProduct[];
+  const products = productData?.products?.data as StrapiProduct[];
 
   return (
     <section>

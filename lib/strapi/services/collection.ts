@@ -1,5 +1,5 @@
 import { strapiFetch } from '..';
-import { Collection, StrapiCollectionOperation, StrapiCollectiosnOperation } from '../domain/collection';
+import { Collection, StrapiCollectionOperation, StrapiCollectiosnOperation, StrapiCollection } from '../domain/collection';
 import { getCollectionQuery, getCollectionsQuery } from '../queries/collection';
 
 export async function getCollectionProducts(handle: string): Promise<Collection> {
@@ -17,12 +17,10 @@ export async function getCollectionProducts(handle: string): Promise<Collection>
   return res.body.data.collection.data.attributes;
 }
 
-export async function getCollectionsProducts(): Promise<Collection[]> {
+export async function getCollectionsProducts(): Promise<StrapiCollection[]> {
   const res = await strapiFetch<StrapiCollectiosnOperation>({
     query: getCollectionsQuery,
-    variables: {
-      data: {}
-    }
+    variables: {}
   });
 
   if (!res.body?.data?.collections?.data || res.body.errors) {
@@ -31,5 +29,5 @@ export async function getCollectionsProducts(): Promise<Collection[]> {
     }
   };
 
-  return res.body?.data?.collections?.data;
+  return res.body.data.collections.data;
 }

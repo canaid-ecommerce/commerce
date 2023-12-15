@@ -26,7 +26,7 @@ export async function Carousel() {
                   alt={product?.attributes?.title}
                   label={{
                     title: product?.attributes?.title,
-                    amount: product?.attributes?.maxVariantPrice?.amount,
+                    amount: String(product?.attributes?.maxVariantPrice?.amount),
                     currencyCode: product?.attributes?.maxVariantPrice?.currencyCode
                   }}
                   src={product?.attributes?.featuredImage?.url}
