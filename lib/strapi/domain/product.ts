@@ -15,13 +15,15 @@ export type Product = {
   variants: Variants[];
 };
 
+export type StrapiProduct = {
+  id: number;
+  attributes: Product;
+};
+
 export type StrapiProductOperation = {
   data: {
     product: {
-      data: {
-        id: number;
-        attributes: Product;
-      };
+      data: StrapiProduct[];
     };
   };
   errors?: unknown;
@@ -33,15 +35,12 @@ export type StrapiProductOperation = {
 export type StrapiProductsOperation = {
   data: {
     products: {
-      data: {
-        id: number,
-        attributes: Product,
-      }[];
+      data: StrapiProduct[];
     };
   };
   errors?: unknown;
   variables: {
     searchValue?: string,
-    sort?: string
+    sort: string[]
   };
 };

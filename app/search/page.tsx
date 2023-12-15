@@ -2,6 +2,7 @@ import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
 import { getProducts } from 'lib/strapi/services/product';
+import { StrapiProduct } from 'lib/strapi/domain/product';
 
 // export const runtime = 'edge';
 
@@ -17,7 +18,7 @@ export default async function SearchPage({
 }) {
   const { sort, q: searchValue } = searchParams as { [key: string]: string };
   const { sortKey } = sorting.find((item) => item.slug === sort) || defaultSort;
-  const products = await getProducts({ sortKey, searchValue});
+  const products = await getProducts({ sortKey, searchValue}) as StrapiProduct[];
   const resultsText = products?.length > 1 ? 'results' : 'result';
 
   return (

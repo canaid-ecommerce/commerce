@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 //import { defaultSort, sorting } from 'lib/constants';
+import { StrapiProduct } from 'lib/strapi/domain/product'
 
 // export const runtime = 'edge';
 
@@ -34,11 +35,11 @@ export default async function CategoryPage({
   // const { sort } = searchParams as { [key: string]: string };
   // const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
   const productData = await getCollectionProducts(params.collection);
-  const products = productData?.products?.data;
+  const products = productData.products.data as StrapiProduct[];
 
   return (
     <section>
-      {products?.length === 0 ? (
+      {products.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
       ) : (
         <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

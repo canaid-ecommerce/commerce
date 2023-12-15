@@ -5,24 +5,29 @@ export type Collection = {
   title: string;
   description?: string;
   handle?: string;
-  SEO?: SEO;
-  products?: {
-    data?: {
+  SEO: SEO;
+  products: {
+    data: {
       id: number;
-      attributes?: [Product] | undefined;
-    };
+      attributes: Product;
+    }[];
   };
   createdAt?: string;
   updatedAt?: string;
 };
 
+export type CollectionStrapi = {
+  id: number;
+  attributes: Collection;
+};
+
 export type StrapiCollectionOperation = {
   data: {
-    collection?: {
+    collection: {
       data: {
         id: number;
         attributes: Collection;
-      };
+      }[];
     };
   };
   variables: {

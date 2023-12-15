@@ -2,7 +2,7 @@ import { strapiFetch } from '..';
 import { Collection, StrapiCollectionOperation, StrapiCollectiosnOperation } from '../domain/collection';
 import { getCollectionQuery, getCollectionsQuery } from '../queries/collection';
 
-export async function getCollectionProducts(handle: string): Promise<Collection | undefined> {
+export async function getCollectionProducts(handle: string): Promise<Collection> {
   const res = await strapiFetch<StrapiCollectionOperation>({
     query: getCollectionQuery,
     variables: {
@@ -14,7 +14,7 @@ export async function getCollectionProducts(handle: string): Promise<Collection 
     console.error(`collection ${handle} not found or unpublished`);
   }
 
-  return res.body?.data?.collection?.data?.attributes;
+  return res.body.data.collection.data.attributes;
 }
 
 export async function getCollectionsProducts(): Promise<Collection[]> {

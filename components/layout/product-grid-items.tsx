@@ -1,9 +1,9 @@
 import Grid from 'components/grid';
 import { GridTileImage } from 'components/grid/tile';
-import { Product } from 'lib/strapi/domain/product';
+import { StrapiProduct } from 'lib/strapi/domain/product';
 import Link from 'next/link';
 
-export default function ProductGridItems({ products }: { products: Product[] }) {
+export default function ProductGridItems({ products }: { products: StrapiProduct[] }) {
 
   return (
     <>

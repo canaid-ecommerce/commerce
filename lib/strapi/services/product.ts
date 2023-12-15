@@ -1,5 +1,5 @@
 import { strapiFetch } from '..';
-import { Product, StrapiProductOperation, StrapiProductsOperation } from '../domain/product';
+import { Product, StrapiProductOperation, StrapiProductsOperation, StrapiProduct } from '../domain/product';
 import { getProductQuery, getProductsQuery } from '../queries/product';
 
 export async function getProduct(handle: string): Promise<Product> {
@@ -24,13 +24,13 @@ export async function getProduct(handle: string): Promise<Product> {
 
 export async function getProducts({ searchValue, sortKey }: {
   searchValue?: string; 
-  sortKey?: string;
-}): Promise<Product[]> {
+  sortKey: string;
+}): Promise<StrapiProduct[]> {
   const res = await strapiFetch<StrapiProductsOperation>({
     query: getProductsQuery,
     variables: {
       searchValue,
-      sort:[sortKey]
+      sort: [sortKey]
     }
   });
 
