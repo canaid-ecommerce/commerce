@@ -1,4 +1,3 @@
-import { defaultSort, sorting } from 'lib/constants';
 import { getCollectionProducts } from 'lib/strapi/services/collection';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -6,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 //import { defaultSort, sorting } from 'lib/constants';
+import { StrapiProduct } from 'lib/strapi/domain/product';
 
 // export const runtime = 'edge';
 
@@ -27,15 +27,15 @@ export async function generateMetadata({
 
 export default async function CategoryPage({
   params,
-  searchParams
+  // searchParams
 }: {
   params: { collection: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  // searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   // const { sort } = searchParams as { [key: string]: string };
   // const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
   const productData = await getCollectionProducts(params.collection);
-  const products = productData.products.data as StrapiProduct[];
+  const products = productData?.products?.data as StrapiProduct[];
 
   return (
     <section>

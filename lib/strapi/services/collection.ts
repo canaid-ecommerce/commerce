@@ -7,7 +7,6 @@ export async function getCollectionProducts(handle: string): Promise<Collection>
     query: getCollectionQuery,
     variables: {
       handle,
-      sort: [sortKey]
     }
   });
 
