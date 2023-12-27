@@ -1,6 +1,6 @@
 import { strapiFetch } from '..';
-import { Product, StrapiProduct, StrapiProductOperation, StrapiProductsOperation } from '../domain/product';
-import { getProductQuery, getProductsQuery } from '../queries/product';
+import { Product, StrapiProduct, StrapiProductOperation, StrapiProductRecommendationsOperation, StrapiProductsOperation } from '../domain/product';
+import { getProductQuery, getProductRecommendationsQuery, getProductsQuery } from '../queries/product';
 
 export async function getProduct(handle: string): Promise<Product> {
   const res = await strapiFetch<StrapiProductOperation>({
@@ -41,4 +41,21 @@ export async function getProducts({ searchValue, sortKey }: {
   };
 
   return res.body.data.products.data;
-}
+};
+
+export async function getProductRecommendations(tags: string[]): Promise<Product[]> {
+  const res = await strapiFetch<StrapiProductRecommendationsOperation>({
+    query: getProductRecommendationsQuery,
+    variables: {
+      tags,
+    }
+  });
+
+  if (!res.body.data || !res.body.data.products || !res.body.data.products.data || res.body.errors) {
+    if (res.body.errors) {
+      console.error(`getProductRecommendations error: ${JSON.stringify(res.body.errors)}`);
+    }
+  };
+
+  return res.body.data?.products?.data;
+};

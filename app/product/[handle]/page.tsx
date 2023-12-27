@@ -77,7 +77,7 @@ export default async function ProductPage({ params }: { params: { handle: string
   };
 
   const productTags = ["Tecnología", "Oferta", "Urban"];
-  console.log('IMAGES', product.images)
+  // console.log('IMAGES', product.images)
 
   return (
     <>
@@ -91,10 +91,10 @@ export default async function ProductPage({ params }: { params: { handle: string
         <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-4">
             <Gallery
-              images={product.images.map((image: Images) => ({
+              images={product.images ? product.images.map((image: Images) => ({
                 src: image.url,
                 altText: image.altText
-              }))}
+              })) : []}
             />
           </div>
 
@@ -116,7 +116,7 @@ export default async function ProductPage({ params }: { params: { handle: string
 // TODO - [descripción del ajuste]
 async function RelatedProducts({ tags }: { tags: string[] }) {
   const relatedProducts = await getProductRecommendations(tags);
-  // console.log('RECOMENDATIONS', relatedProducts)
+  console.log('RECOMENDATIONS', relatedProducts)
   
 
   if (!relatedProducts.length) return null;
