@@ -139,7 +139,7 @@ async function RelatedProducts({ tags }: { tags: string[] }) {
                   amount: product?.attributes?.maxVariantPrice?.amount.toString(),
                   currencyCode: product?.attributes?.maxVariantPrice?.currencyCode || 'COP'
                 }}
-                src={product?.attributes?.featuredImage}
+                src={product?.attributes?.featuredImage.url}
                 width={600}
                 height={600}
               />

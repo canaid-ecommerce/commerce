@@ -43,7 +43,7 @@ export async function getProducts({ searchValue, sortKey }: {
   return res.body.data.products.data;
 };
 
-export async function getProductRecommendations(tags: string[]): Promise<Product[]> {
+export async function getProductRecommendations(tags: string[]): Promise<StrapiProduct[]> {
   const res = await strapiFetch<StrapiProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     variables: {
