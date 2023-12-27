@@ -1,7 +1,7 @@
 import { ProductFragment } from "../fragments/product";
 
 export const getCollectionQuery = `
-query getCollectionProducts($handle: String!) {
+query getCollectionProducts($handle: String!  $sort: [String]) {
   collection(handle: $handle) {
     data {
       id
@@ -14,7 +14,7 @@ query getCollectionProducts($handle: String!) {
         }
         createdAt
         updatedAt
-        products {
+        products (sort: $sort) {
           data {
             id
             attributes {
