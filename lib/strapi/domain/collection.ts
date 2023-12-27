@@ -32,6 +32,7 @@ export type StrapiCollectionOperation = {
   };
   variables: {
     handle: string;
+    sort?: string;
   };
 };
 

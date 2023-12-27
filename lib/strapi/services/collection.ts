@@ -1,12 +1,13 @@
 import { strapiFetch } from '..';
-import { Collection, StrapiCollectionOperation, StrapiCollectiosnOperation, StrapiCollection } from '../domain/collection';
+import { Collection, StrapiCollection, StrapiCollectionOperation, StrapiCollectiosnOperation } from '../domain/collection';
 import { getCollectionQuery, getCollectionsQuery } from '../queries/collection';
 
 export async function getCollectionProducts(handle: string): Promise<Collection> {
   const res = await strapiFetch<StrapiCollectionOperation>({
     query: getCollectionQuery,
     variables: {
-      handle
+      handle,
+      sort: [sortKey]
     }
   });
 

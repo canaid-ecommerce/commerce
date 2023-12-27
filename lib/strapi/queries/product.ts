@@ -36,3 +36,24 @@ query Products($searchValue: String, $sort: [String]) {
 }
 ${ProductFragment}
 `;
+
+export const getProductRecommendationsQuery = `
+query Products($tags: [String!]) {
+  products(filters: { and: [{ tags: { name: { in: $tags } } }] })  {
+    data {
+      id
+      attributes {
+        ...product
+        tags {
+          data {
+            attributes {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
+  ${ProductFragment}
+`;
