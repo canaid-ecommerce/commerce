@@ -45,3 +45,18 @@ export type StrapiProductsOperation = {
     sort?: string
   };
 };
+
+export type StrapiProductRecommendationsOperation = {
+  data: {
+    products: {
+      data: {
+        id: number,
+        attributes: Product,
+      }[];
+    };
+  };
+  errors?: unknown
+  variables: {
+    tags: string[];
+  };
+};
