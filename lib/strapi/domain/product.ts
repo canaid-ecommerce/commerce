@@ -13,13 +13,19 @@ export type Product = {
   SEO: SEO;
   images: Images[];
   variants: Variants[];
-  tags: Tags[];
+  tags: StrapiTags;
 };
 
 export type StrapiProduct = {
   id: number;
   attributes: Product;
 };
+
+export type StrapiTags = {
+  data: {
+    attributes: Tags;
+  }[];
+}
 
 export type StrapiProductOperation = {
   data: {

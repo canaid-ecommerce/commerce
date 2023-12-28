@@ -38,7 +38,7 @@ export type PriceRange = {
 };
 
 export type Tags = {
-  name: string[];
+  name: string;
 };
 
 export type Variants = {

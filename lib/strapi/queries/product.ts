@@ -28,7 +28,6 @@ query Products($searchValue: String, $sort: [String]) {
     data {
       id
       attributes {
-        createdAt
         ...product
       }
     }
@@ -44,13 +43,6 @@ query Products($tags: [String!]) {
       id
       attributes {
         ...product
-        tags {
-          data {
-            attributes {
-              name
-            }
-          }
-        }
       }
     }
   }

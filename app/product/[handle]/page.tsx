@@ -78,6 +78,15 @@ export default async function ProductPage({ params }: { params: { handle: string
 
   const productTags = ["Tecnología", "Oferta", "Urban"]
 
+  // cerate tags
+  let tags: string[] = [];
+
+  if (product?.tags?.data.length) {
+    await product?.tags?.data.forEach(item => {
+      tags.push(item?.attributes?.name);
+    });
+  }
+
   return (
     <>
       <script
@@ -102,7 +111,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
         </div>
         <Suspense>
-          <RelatedProducts tags={productTags} />
+          <RelatedProducts tags={tags} />
         </Suspense>
       </div>
       <Suspense>
@@ -117,12 +126,6 @@ async function RelatedProducts({ tags }: { tags: string[] }) {
   const relatedProducts = await getProductRecommendations(tags); 
 
   if (!relatedProducts.length) return null;
-
-  const ProductTags: string[][] = relatedProducts.map(
-    (product) => product?.attributes?.tags || ''
-  );
-
-  // console.log('Product Tags', ProductTags)
 
   return (
     <div className="py-8">

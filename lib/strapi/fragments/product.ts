@@ -26,6 +26,13 @@ fragment product on Product{
   variants {
     ...variant
   }
+  tags {
+    data {
+      attributes {
+        name
+      }
+    }
+  }
 }
 
 ${MoneyFragment}
