@@ -1,4 +1,4 @@
-import { FeaturedImage, Images, Money, SEO, Variants } from './components';
+import { FeaturedImage, Images, Money, SEO, Tags, Variants } from './components';
 
 export type Product = {
   id?: number;
@@ -13,6 +13,7 @@ export type Product = {
   SEO: SEO;
   images: Images[];
   variants: Variants[];
+  tags: Tags[];
 };
 
 export type StrapiProduct = {
