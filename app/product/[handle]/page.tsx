@@ -130,7 +130,7 @@ async function RelatedProducts({ tags }: { tags: string[] }) {
             <Link
               key={i}
               className="w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
-              href={`/product/${product?.id}`}
+              href={`/product/${product?.attributes?.handle}`}
             >
               <GridTileImage
                 alt={product?.attributes?.title}
@@ -139,7 +139,7 @@ async function RelatedProducts({ tags }: { tags: string[] }) {
                   amount: product?.attributes?.maxVariantPrice?.amount.toString(),
                   currencyCode: product?.attributes?.maxVariantPrice?.currencyCode || 'COP'
                 }}
-                src={product?.attributes?.featuredImage.url}
+                src={product?.attributes?.featuredImage?.url}
                 width={600}
                 height={600}
               />
