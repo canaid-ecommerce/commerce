@@ -76,10 +76,8 @@ export default async function ProductPage({ params }: { params: { handle: string
     }
   };
 
-  const productTags = ["Tecnología", "Oferta", "Urban"]
-
   // cerate tags
-  let tags: string[] = [];
+  const tags: string[] = [];
 
   if (product?.tags?.data.length) {
     await product?.tags?.data.forEach(item => {
@@ -132,7 +130,6 @@ async function RelatedProducts({ tags }: { tags: string[] }) {
       <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
       <div className="flex w-full gap-4 overflow-x-auto pt-1">
         {relatedProducts.map((product, i) => {
-          // console.log('TAG', product.attributes.tags.data)
           return (
             <Link
               key={i}
